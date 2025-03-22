@@ -1,10 +1,16 @@
 # Agentforce Optimizer
 
-A Salesforce DX project designed to optimize and automate Agentforce configurations for improved virtual agent performance.
+A Salesforce DX project designed to optimize and automate Agentforce configurations for improved virtual agent performance. This tool validates configurations against industry best practices and provides recommendations for optimal setup.
 
 ## Overview
 
-This project provides tools and automation capabilities to enhance the performance of virtual agents in the Salesforce ecosystem. It helps streamline the configuration process and optimize settings for better agent efficiency.
+This project provides tools and automation capabilities to enhance the performance of virtual agents in the Salesforce ecosystem. It helps streamline the configuration process and optimize settings for better agent efficiency by:
+
+- Validating configurations against established best practices
+- Identifying potential issues and optimization opportunities
+- Providing actionable recommendations for improvement
+- Automating common configuration tasks
+- Ensuring consistent setup across different environments
 
 ## Prerequisites
 
