@@ -1,0 +1,170 @@
+<template>
+    <!-- Splash Screen -->
+    <template if:true={showSplashScreen}>
+        <lightning-card title="Agent Configuration Viewer" icon-name="standard:bot">
+            <div class="slds-align_absolute-center">
+                <img src={logoUrl} alt="AgentForce Optimizer Logo" />
+            </div>
+        </lightning-card>
+    </template>
+
+    <!-- Loading spinner -->
+    <template if:true={isLoading}>
+        <lightning-card title="Agent Configuration Viewer" icon-name="standard:bot">
+            <div class="slds-is-relative" style="min-height: 100px">
+                <lightning-spinner alternative-text="Loading" size="medium"></lightning-spinner>
+            </div>
+        </lightning-card>
+    </template>
+
+    <!-- Error state -->
+    <template if:true={error}> 
+        <lightning-card title="Agent Configuration Viewer" icon-name="standard:bot">
+            <div class="slds-notify slds-notify_alert slds-alert_error" role="alert">
+                <lightning-icon icon-name="utility:error" alternative-text="Error" variant="inverse"
+                    size="small"></lightning-icon>
+                <h2 class="slds-m-left_small">{error.body.message}</h2>
+            </div>
+        </lightning-card>
+    </template>
+
+    <!-- Configuration display -->
+    <template if:true={hasConfiguration}>
+        <lightning-card title={agentLabel} icon-name="standard:bot">
+            <p slot="actions">
+                <lightning-button-icon
+                    icon-name={expandIconName}
+                    alternative-text={expandButtonTitle}
+                    title={expandButtonTitle}
+                    onclick={handleExpandAll}
+                    class="slds-m-right_small">
+                </lightning-button-icon>
+                <lightning-badge label={agentConfig.plannerType}></lightning-badge>
+            </p>
+
+            <!-- Agent Description -->
+            <div class="slds-p-horizontal_medium">
+                <p class="slds-text-body_regular slds-m-bottom_medium">{agentConfig.description}</p>
+
+                <!-- Agent Details -->
+                <lightning-layout multiple-rows>
+                    <lightning-layout-item size="6" padding="around-small">
+                        <div class="slds-form-element">
+                            <span class="slds-form-element__label">Name</span>
+                            <div class="slds-form-element__control">
+                                <div class="slds-form-element__static">{agentConfig.name}</div>
+                            </div>
+                        </div>
+                        <div class="slds-form-element">
+                            <span class="slds-form-element__label">Language</span>
+                            <div class="slds-form-element__control">
+                                <div class="slds-form-element__static">{agentConfig.language}</div>
+                            </div>
+                        </div>
+                    </lightning-layout-item>
+                    <lightning-layout-item size="6" padding="around-small">
+                        <div class="slds-form-element">
+                            <span class="slds-form-element__label">Created</span>
+                            <div class="slds-form-element__control">
+                                <div class="slds-form-element__static">
+                                    <lightning-formatted-date-time
+                                        value={agentConfig.createdDate}></lightning-formatted-date-time>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="slds-form-element">
+                            <span class="slds-form-element__label">Last Modified</span>
+                            <div class="slds-form-element__control">
+                                <div class="slds-form-element__static">
+                                    <lightning-formatted-date-time
+                                        value={agentConfig.lastModifiedDate}></lightning-formatted-date-time>
+                                </div>
+                            </div>
+                        </div>
+                    </lightning-layout-item>
+                </lightning-layout>
+
+                <!-- Topics -->
+                <div class="slds-m-top_medium">
+                    <lightning-accordion allow-multiple-sections-open class="slds-card">
+                        <template for:each={topics} for:item="topic">
+                            <lightning-accordion-section key={topic.id} name={topic.name} label={topic.label}>
+
+                                <!-- Topic Content -->
+                                <lightning-card variant="narrow">
+                                    <div class="slds-p-around_medium">
+                                        <!-- Topic Description -->
+                                        <h3 class="header">Description</h3>
+                                        <p class="slds-text-body_regular slds-m-bottom_medium">{topic.description}</p>
+
+                                        <!-- Topic Scope -->
+                                        <h3 class="header">Scope</h3>
+                                        <p class="slds-text-body_regular slds-m-bottom_medium">{topic.scope}</p>
+
+                                        <!-- Instructions -->
+                                        <template if:true={topic.instructions}>
+                                            <article class="slds-card slds-m-top_medium">
+                                                <div class="slds-card__header slds-grid">
+                                                    <header
+                                                        class="slds-media slds-media_center slds-has-flexi-truncate">
+                                                        <div class="slds-media__body">
+                                                            <h2 class="slds-card__header-title">
+                                                                <span
+                                                                    class="slds-text-heading_small">Instructions</span>
+                                                            </h2>
+                                                        </div>
+                                                    </header>
+                                                </div>
+                                                <div class="slds-card__body">
+                                                    <template for:each={topic.instructions} for:item="instruction">
+                                                        <div key={instruction.id}
+                                                            class="slds-box slds-box_xx-small slds-m-bottom_x-small">
+                                                            <div class="slds-grid slds-grid_vertical">
+                                                                <!-- <div class="slds-col">
+                                                                        <h3 class="slds-text-heading_small">{instruction.label}</h3>
+                                                                    </div> -->
+                                                                <div class="slds-col slds-m-top_xx-small">
+                                                                    <p class="slds-text-body_regular">
+                                                                        {instruction.description}</p>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </template>
+                                                </div>
+                                            </article>
+                                        </template>
+
+                                        <!-- Actions -->
+                                        <template if:true={topic.actions}>
+                                            <article class="slds-card">
+                                                <div class="slds-card__header slds-grid">
+                                                    <header
+                                                        class="slds-media slds-media_center slds-has-flexi-truncate">
+                                                        <div class="slds-media__body">
+                                                            <h2 class="slds-card__header-title">
+                                                                <span class="slds-text-heading_small">Actions</span>
+                                                            </h2>
+                                                        </div>
+                                                    </header>
+                                                </div>
+                                                <div class="slds-card__body">
+                                                    <template for:each={topic.actions} for:item="action">
+                                                        <div key={action.id}
+                                                            class="slds-box slds-box_xx-small slds-m-bottom_x-small">
+                                                            <lightning-formatted-rich-text
+                                                                value={action.function}></lightning-formatted-rich-text>
+                                                        </div>
+                                                    </template>
+                                                </div>
+                                            </article>
+                                        </template>
+                                    </div>
+                                </lightning-card>
+                            </lightning-accordion-section>
+                        </template>
+                    </lightning-accordion>
+                </div>
+            </div>
+        </lightning-card>
+    </template>
+</template>

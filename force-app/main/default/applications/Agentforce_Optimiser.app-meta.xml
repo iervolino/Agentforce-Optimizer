@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomApplication xmlns="http://soap.sforce.com/2006/04/metadata">
+    <brand>
+        <headerColor>#0070D2</headerColor>
+        <logo>astroagentforcefly</logo>
+        <logoVersion>1</logoVersion>
+        <shouldOverrideOrgTheme>false</shouldOverrideOrgTheme>
+    </brand>
+    <description>Agentforce Optimizer is a powerful tool designed to fine-tune and optimize Agentforce configurations, ensuring peak performance for autonomous agents in Salesforce. With intelligent recommendations, automated tuning, and real-time insights, Agentforce Opt</description>
+    <formFactors>Small</formFactors>
+    <formFactors>Large</formFactors>
+    <isNavAutoTempTabsDisabled>false</isNavAutoTempTabsDisabled>
+    <isNavPersonalizationDisabled>false</isNavPersonalizationDisabled>
+    <isNavTabPersistenceDisabled>false</isNavTabPersistenceDisabled>
+    <isOmniPinnedViewEnabled>false</isOmniPinnedViewEnabled>
+    <label>Agentforce Optimizer</label>
+    <navType>Standard</navType>
+    <tabs>Welcome</tabs>
+    <tabs>Optimize</tabs>
+    <uiType>Lightning</uiType>
+    <utilityBar>Agentforce_Optimizer_UtilityBar</utilityBar>
+</CustomApplication>

@@ -1,0 +1,19 @@
+{
+  "packageDirectories": [
+    {
+      "versionName": "ver 0.1",
+      "versionNumber": "0.1.0.NEXT",
+      "path": "force-app",
+      "default": true,
+      "package": "Agentforce_Optimizer",
+      "versionDescription": "Optimizes and automates Agentforce configurations for improved virtual agent performance."
+    }
+  ],
+  "name": "Agentforce Optimizer",
+  "namespace": "",
+  "sfdcLoginUrl": "https://login.salesforce.com",
+  "sourceApiVersion": "63.0",
+  "packageAliases": {
+    "Agentforce_Optimizer": "0HoKA0000008OIU0A2"
+  }
+}

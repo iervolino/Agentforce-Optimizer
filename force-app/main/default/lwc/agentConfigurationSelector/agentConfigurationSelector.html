@@ -1,0 +1,32 @@
+<template>
+    <lightning-card title="Agent Configuration" icon-name="standard:bot">
+        <div class="slds-p-around_medium">
+            <div class="slds-form-element">
+                <label class="slds-form-element__label" for="agent-select">
+                    Select Agent
+                </label>
+                <div class="slds-form-element__control">
+                    <div class="slds-select_container">
+                        <select id="agent-select" class="slds-select" onchange={handleAgentChange}
+                            aria-describedby="agent-select-help">
+                            <option value="">--None--</option>
+                            <template for:each={agents} for:item="agent">
+                                <option key={agent.id} value={agent.id}>{agent.label}</option>
+                            </template>
+                        </select>
+                    </div>
+                    <div id="agent-select-help" class="slds-form-element__help">
+                        Select an agent to configure
+                    </div>
+                </div>
+            </div>
+
+            <template if:true={error}>
+                <div class="slds-notify slds-notify_alert slds-theme_alert-texture slds-theme_error" role="alert">
+                    <span class="slds-assistive-text">error</span>
+                    <h2>{error.body.message}</h2>
+                </div>
+            </template>
+        </div>
+    </lightning-card>
+</template>

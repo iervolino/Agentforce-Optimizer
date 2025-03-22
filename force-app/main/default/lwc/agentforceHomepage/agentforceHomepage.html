@@ -1,0 +1,91 @@
+<template>
+	<article class="slds-card">
+		<!-- Hero banner image -->
+		<div class="slds-card__header" aria-hidden="true">
+			<img src={heroBannerUrl}></img>
+		</div>
+		<!-- Hero title -->
+		<h1 class="slds-text-align_center slds-var-p-around_medium">
+			<span
+				class="slds-page-header__title slds-text-heading_large slds-truncate"
+				title={labels.welcome}>{labels.welcome}</span>
+		</h1>
+
+		<div class="slds-page-content slds-p-top_none slds-has-cushion slds-text-align_center">
+			<!-- Hero description, multiple lines -->
+			<p class="slds-align_absolute-center">{labels.heroDescription1}</p>
+			<p class="slds-align_absolute-center">{labels.heroDescription2}</p>
+
+			<div class="slds-grid slds-p-top--large">
+				<!-- Launch a test agent card -->
+				<div class="slds-col slds-grid slds-size_1-of-3">
+					<div class="slds-card slds-card_boundary slds-var-m-around_medium slds-grid slds-grid_vertical">
+						<div class="card-header-banner slds-align_absolute-center" style={launchBannerStyle} aria-hidden="true">
+							<lightning-icon icon-name="utility:all" class="slds-var-m-vertical_xx-large"></lightning-icon>
+						</div>
+						<div class="slds-card__body slds-card__body_inner slds-col slds-grid slds-grid_vertical">
+							<div class="slds-page-header__title slds-text-heading_small slds-p-bottom_small">{labels.launchTitle}</div>
+							<p>
+								<lightning-formatted-rich-text value={labels.launchDescription}></lightning-formatted-rich-text>
+							</p>
+							<lightning-button
+								class="slds-m-bottom_large"
+								label={labels.launchAction}
+								data-type="url"
+								data-url="/AiCopilot/copilotStudio.app#/copilot/wizard?mode=newAgent"
+								onclick={view}
+								name="guide"
+								variant="brand"></lightning-button>
+						</div>
+					</div>
+				</div>
+
+				<!-- Practice building an agent card -->
+				<div class="slds-col slds-grid slds-size_1-of-3">
+					<div class="slds-card slds-card_boundary slds-var-m-around_medium slds-grid slds-grid_vertical">
+						<div class="card-header-banner slds-align_absolute-center" style={practiceBannerStyle} aria-hidden="true">
+							<lightning-icon icon-name="utility:setup_assistant_guide" class="slds-var-m-vertical_xx-large"></lightning-icon>
+						</div>
+						<div class="slds-card__body slds-card__body_inner slds-col slds-grid slds-grid_vertical">
+							<div class="slds-page-header__title slds-text-heading_small slds-p-bottom_small">{labels.practiceTitle}</div>
+							<p>{labels.practiceDescription}</p>
+							<lightning-button
+								class="slds-m-bottom_large"
+								label={labels.practiceAction}
+								data-type="url"
+								data-url="https://trailhead.salesforce.com/content/learn/projects/quick-start-build-your-first-agent-with-agentforce"
+								icon-name="utility:new_window"
+								icon-position="right"
+								onclick={view}
+								name="guide"
+								variant="brand"></lightning-button>
+						</div>
+					</div>
+				</div>
+
+				<!-- Learn about Agentforce card-->
+				<div class="slds-col slds-grid slds-size_1-of-3">
+					<div class="slds-card slds-card_boundary slds-var-m-around_medium slds-grid slds-grid_vertical">
+						<div class="card-header-banner slds-align_absolute-center" style={learnBannerStyle} aria-hidden="true">
+							<lightning-icon icon-name="utility:comments" class="slds-var-m-vertical_xx-large"></lightning-icon>
+						</div>
+						<div class="slds-card__body slds-card__body_inner slds-col slds-grid slds-grid_vertical">
+							<div class="slds-page-header__title slds-text-heading_small slds-p-bottom_small">{labels.learnTitle}</div>
+							<p>{labels.learnDescription}</p>
+							<lightning-button
+								class="slds-m-bottom_large"
+								label={labels.learnAction}
+								data-type="url"
+								data-url="https://help.salesforce.com/s/articleView?id=ai.copilot_overview.htm&type=5"
+								icon-name="utility:new_window"
+								icon-position="right"
+								onclick={view}
+								name="guide"
+								variant="brand"></lightning-button>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</article>
+</template>

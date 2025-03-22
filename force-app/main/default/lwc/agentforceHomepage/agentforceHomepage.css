@@ -1,0 +1,24 @@
+.slds-card {
+	width: 100%;
+}
+
+.slds-card__header {
+	padding: 0;
+	background-color: var(--slds-g-color-neutral-base-95, #f3f3f3);
+}
+
+.slds-card .card-header-banner {
+	background-repeat: no-repeat;
+	background-position: center;
+	background-size: cover;
+	height: 35%;
+	background-color: var(--slds-g-color-neutral-base-95, #f3f3f3);
+	width: 100%;
+	margin: 0;
+	--slds-c-icon-color-foreground-default: var(--slds-g-color-neutral-base-100, #fff);
+}
+
+/* Causes consistent spacing so that the button is sticky to the bottom of the card, so all cards buttons are around the same vertical offset */
+.slds-card .slds-card__body_inner lightning-button {
+	margin-top: auto;
+}
