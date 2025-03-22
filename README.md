@@ -9,8 +9,6 @@ This project provides tools and automation capabilities to enhance the performan
 - Validating configurations against established best practices
 - Identifying potential issues and optimization opportunities
 - Providing actionable recommendations for improvement
-- Automating common configuration tasks
-- Ensuring consistent setup across different environments
 
 ## Prerequisites
 
