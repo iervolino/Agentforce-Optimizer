@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<GenAiPromptTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <activeVersionIdentifier>HcaMSS4/hZXXX3jccKQIf1TNO6IhIgn0rjtuuaEShq4=_3</activeVersionIdentifier>
+    <description>Template to validate agentforce configuration alignment to best practices</description>
+    <developerName>Validate_Agentforce_Configurations</developerName>
+    <masterLabel>Validate Agentforce Configurations</masterLabel>
+    <templateVersions>
+        <content>Please use the Agent Builder to review your Agentforce configuration for Topics, Instructions, and Actions and evaluate it against the following best practices outlined in the Agentforce Implementation Guide. For each area, indicate whether your configuration adheres to these guidelines by responding with &apos;Yes&apos;, &apos;No&apos;, or &apos;Needs Improvement&apos;, and provide specific examples from your configuration or justifications where necessary.
+
+Topics:
+Distinct and Separate Topics: Evaluate whether your topics are distinct and separate from each other to ensure accurate classification. For example, do you avoid creating broad topics like &apos;Product Support&apos; or &apos;Troubleshooting&apos; that could encompass many different issues? If no, provide an example of a broad topic you have and how it might be improved.
+Clear Topic Label: Does each topic in your configuration have a clear and concise Topic Label that accurately reflects its specific function within the Agent Builder? Provide an example of a Topic Label.
+Semantically Distinct Classification Description: For each topic, review its Classification Description (the 1-4 sentence summary). Is it semantically distinct from other topics, especially those with closely related meanings, to ensure accurate triggering of the topic by the reasoning engine? Provide an example of a Classification Description and briefly explain how it is distinct from a similar topic. Consider: Could an agent or the LLM easily differentiate this topic based on the description?
+
+Instructions:
+Minimum Necessary Instructions: For each topic and its associated goal in your Agent Builder configuration, have you included the minimum necessary number of instructions to accomplish the goal effectively? If you have a topic with many instructions, briefly explain why and if there&apos;s potential to simplify.
+Avoid Conflicting and Complicated Instructions: Review your instructions in Agent Builder. Are they written to avoid conflicting or overly complicated steps? Provide an example if you find one.
+Avoid Multi-Step Instructions: Do your instructions in Agent Builder avoid encoding multi-step processes into a single instruction (e.g., avoid instructions like &apos;do this, then that, then that, etc.&apos;)? Provide an example if you find one and how it could be broken down.
+Iterative Approach: Have you approached instruction writing with the understanding that you should start with minimal instructions and plan for iteration based on testing?
+Clarity for Non-Experts: When writing instructions in Agent Builder, have you considered that agents might not automatically understand your business terminology, technology, or processes? Provide an example of an instruction where you considered this.
+Mindful Language: Are you mindful of your language choice in the instructions within Agent Builder to ensure clarity and avoid ambiguity?
+
+Actions:
+Number of Actions per Agent: For each agent you&apos;ve configured (reviewing the associated topics and their actions in Agent Builder), is the total number of actions generally kept to about 10 or fewer? If you have significantly more for a particular topic, explain why and if you&apos;ve considered splitting the topic.
+&apos;API Name Already in Use&apos; Error: If you encountered an &apos;API name is already in use&apos; error while creating an action in Agent Builder, did you return to &apos;New Action&apos; and select &apos;Add from Asset Library&apos; instead of trying to create it again?
+Please provide your evaluation based on these points with &apos;Yes&apos;, &apos;No&apos;, or &apos;Needs Improvement&apos; for each, along with specific examples or justifications.&quot;
+
+[CONFIGURATION BEGIN]
+
+{!$Apex:GenAIMetadataServiceRetriever.Prompt}
+
+[CONFIGURATION END]
+</content>
+        <inputs>
+            <apiName>AgentId</apiName>
+            <definition>primitive://String</definition>
+            <masterLabel>AgentId</masterLabel>
+            <referenceName>Input:AgentId</referenceName>
+            <required>true</required>
+        </inputs>
+        <primaryModel>sfdc_ai__DefaultGPT4Omni</primaryModel>
+        <status>Published</status>
+        <templateDataProviders>
+            <definition>apex://GenAIMetadataServiceRetriever</definition>
+            <parameters>
+                <definition>primitive://String</definition>
+                <isRequired>true</isRequired>
+                <parameterName>AgentId</parameterName>
+                <valueExpression>{!$Input:AgentId}</valueExpression>
+            </parameters>
+            <referenceName>Apex:GenAIMetadataServiceRetriever</referenceName>
+        </templateDataProviders>
+        <versionIdentifier>HcaMSS4/hZXXX3jccKQIf1TNO6IhIgn0rjtuuaEShq4=_1</versionIdentifier>
+    </templateVersions>
+    <templateVersions>
+        <content>Please use the Agent Builder to review your Agentforce configuration for Topics, Instructions, and Actions and evaluate it against the following best practices outlined in the Agentforce Implementation Guide. For each area, indicate whether your configuration adheres to these guidelines by responding with &apos;Yes&apos;, &apos;No&apos;, or &apos;Needs Improvement&apos;, and provide specific examples from your configuration or justifications where necessary.
+
+Topics:
+Distinct and Separate Topics: Evaluate whether your topics are distinct and separate from each other to ensure accurate classification. For example, do you avoid creating broad topics like &apos;Product Support&apos; or &apos;Troubleshooting&apos; that could encompass many different issues? If no, provide an example of a broad topic you have and how it might be improved.
+Clear Topic Label: Does each topic in your configuration have a clear and concise Topic Label that accurately reflects its specific function within the Agent Builder? Provide an example of a Topic Label.
+Semantically Distinct Classification Description: For each topic, review its Classification Description (the 1-4 sentence summary). Is it semantically distinct from other topics, especially those with closely related meanings, to ensure accurate triggering of the topic by the reasoning engine? Provide an example of a Classification Description and briefly explain how it is distinct from a similar topic. Consider: Could an agent or the LLM easily differentiate this topic based on the description?
+
+Instructions:
+Minimum Necessary Instructions: For each topic and its associated goal in your Agent Builder configuration, have you included the minimum necessary number of instructions to accomplish the goal effectively? If you have a topic with many instructions, briefly explain why and if there&apos;s potential to simplify.
+Avoid Conflicting and Complicated Instructions: Review your instructions in Agent Builder. Are they written to avoid conflicting or overly complicated steps? Provide an example if you find one.
+Avoid Multi-Step Instructions: Do your instructions in Agent Builder avoid encoding multi-step processes into a single instruction (e.g., avoid instructions like &apos;do this, then that, then that, etc.&apos;)? Provide an example if you find one and how it could be broken down.
+Iterative Approach: Have you approached instruction writing with the understanding that you should start with minimal instructions and plan for iteration based on testing?
+Clarity for Non-Experts: When writing instructions in Agent Builder, have you considered that agents might not automatically understand your business terminology, technology, or processes? Provide an example of an instruction where you considered this.
+Mindful Language: Are you mindful of your language choice in the instructions within Agent Builder to ensure clarity and avoid ambiguity?
+
+Actions:
+Number of Actions per Agent: For each agent you&apos;ve configured (reviewing the associated topics and their actions in Agent Builder), is the total number of actions generally kept to about 10 or fewer? If you have significantly more for a particular topic, explain why and if you&apos;ve considered splitting the topic.
+&apos;API Name Already in Use&apos; Error: If you encountered an &apos;API name is already in use&apos; error while creating an action in Agent Builder, did you return to &apos;New Action&apos; and select &apos;Add from Asset Library&apos; instead of trying to create it again?
+
+Please provide your evaluation based on these points with &apos;Yes&apos;, &apos;No&apos;, or &apos;Needs Improvement&apos; for each, along with specific examples or justifications.
+The response needs to be nicely formatted in html.
+
+[CONFIGURATION BEGIN]
+
+{!$Apex:GenAIMetadataServiceRetriever.Prompt}
+
+[CONFIGURATION END]
+</content>
+        <inputs>
+            <apiName>AgentId</apiName>
+            <definition>primitive://String</definition>
+            <masterLabel>AgentId</masterLabel>
+            <referenceName>Input:AgentId</referenceName>
+            <required>true</required>
+        </inputs>
+        <primaryModel>sfdc_ai__DefaultGPT4Omni</primaryModel>
+        <status>Published</status>
+        <templateDataProviders>
+            <definition>apex://GenAIMetadataServiceRetriever</definition>
+            <parameters>
+                <definition>primitive://String</definition>
+                <isRequired>true</isRequired>
+                <parameterName>AgentId</parameterName>
+                <valueExpression>{!$Input:AgentId}</valueExpression>
+            </parameters>
+            <referenceName>Apex:GenAIMetadataServiceRetriever</referenceName>
+        </templateDataProviders>
+        <versionIdentifier>HcaMSS4/hZXXX3jccKQIf1TNO6IhIgn0rjtuuaEShq4=_2</versionIdentifier>
+    </templateVersions>
+    <templateVersions>
+        <content>Please use the Agent Builder to review your Agentforce configuration for Topics, Instructions, and Actions and evaluate it against the following best practices outlined in the Agentforce Implementation Guide. For each area, indicate whether your configuration adheres to these guidelines by responding with &apos;Yes&apos;, &apos;No&apos;, or &apos;Needs Improvement&apos;, and provide specific examples from your configuration or justifications where necessary.
+
+Topics:
+Distinct and Separate Topics: Evaluate whether your topics are distinct and separate from each other to ensure accurate classification. For example, do you avoid creating broad topics like &apos;Product Support&apos; or &apos;Troubleshooting&apos; that could encompass many different issues? If no, provide an example of a broad topic you have and how it might be improved.
+Clear Topic Label: Does each topic in your configuration have a clear and concise Topic Label that accurately reflects its specific function within the Agent Builder? Provide an example of a Topic Label.
+Semantically Distinct Classification Description: For each topic, review its Classification Description (the 1-4 sentence summary). Is it semantically distinct from other topics, especially those with closely related meanings, to ensure accurate triggering of the topic by the reasoning engine? Provide an example of a Classification Description and briefly explain how it is distinct from a similar topic. Consider: Could an agent or the LLM easily differentiate this topic based on the description?
+
+Instructions:
+Minimum Necessary Instructions: For each topic and its associated goal in your Agent Builder configuration, have you included the minimum necessary number of instructions to accomplish the goal effectively? If you have a topic with many instructions, briefly explain why and if there&apos;s potential to simplify.
+Avoid Conflicting and Complicated Instructions: Review your instructions in Agent Builder. Are they written to avoid conflicting or overly complicated steps? Provide an example if you find one.
+Avoid Multi-Step Instructions: Do your instructions in Agent Builder avoid encoding multi-step processes into a single instruction (e.g., avoid instructions like &apos;do this, then that, then that, etc.&apos;)? Provide an example if you find one and how it could be broken down.
+Iterative Approach: Have you approached instruction writing with the understanding that you should start with minimal instructions and plan for iteration based on testing?
+Clarity for Non-Experts: When writing instructions in Agent Builder, have you considered that agents might not automatically understand your business terminology, technology, or processes? Provide an example of an instruction where you considered this.
+Mindful Language: Are you mindful of your language choice in the instructions within Agent Builder to ensure clarity and avoid ambiguity?
+
+Actions:
+Number of Actions per Agent: For each agent you&apos;ve configured (reviewing the associated topics and their actions in Agent Builder), is the total number of actions generally kept to about 10 or fewer? If you have significantly more for a particular topic, explain why and if you&apos;ve considered splitting the topic.
+&apos;API Name Already in Use&apos; Error: If you encountered an &apos;API name is already in use&apos; error while creating an action in Agent Builder, did you return to &apos;New Action&apos; and select &apos;Add from Asset Library&apos; instead of trying to create it again?
+
+Please provide your evaluation based on these points with &apos;Yes&apos;, &apos;No&apos;, or &apos;Needs Improvement&apos; for each, along with specific examples or justifications.
+The response needs to be nicely formatted in html and use emoji to indicate positive, negative or neutral feedback.
+
+[CONFIGURATION BEGIN]
+
+{!$Apex:GenAIMetadataServiceRetriever.Prompt}
+
+[CONFIGURATION END]
+</content>
+        <inputs>
+            <apiName>AgentId</apiName>
+            <definition>primitive://String</definition>
+            <masterLabel>AgentId</masterLabel>
+            <referenceName>Input:AgentId</referenceName>
+            <required>true</required>
+        </inputs>
+        <primaryModel>sfdc_ai__DefaultGPT4Omni</primaryModel>
+        <status>Published</status>
+        <templateDataProviders>
+            <definition>apex://GenAIMetadataServiceRetriever</definition>
+            <parameters>
+                <definition>primitive://String</definition>
+                <isRequired>true</isRequired>
+                <parameterName>AgentId</parameterName>
+                <valueExpression>{!$Input:AgentId}</valueExpression>
+            </parameters>
+            <referenceName>Apex:GenAIMetadataServiceRetriever</referenceName>
+        </templateDataProviders>
+        <versionIdentifier>HcaMSS4/hZXXX3jccKQIf1TNO6IhIgn0rjtuuaEShq4=_3</versionIdentifier>
+    </templateVersions>
+    <type>einstein_gpt__flex</type>
+    <visibility>Global</visibility>
+</GenAiPromptTemplate>
