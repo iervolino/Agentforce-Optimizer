@@ -12,7 +12,7 @@
   "name": "Agentforce Optimizer",
   "namespace": "",
   "sfdcLoginUrl": "https://login.salesforce.com",
-  "sourceApiVersion": "64.0",
+  "sourceApiVersion": "63.0",
   "packageAliases": {
     "Agentforce Optimizer": "0HoKA0000008OIZ0A2"
   }
