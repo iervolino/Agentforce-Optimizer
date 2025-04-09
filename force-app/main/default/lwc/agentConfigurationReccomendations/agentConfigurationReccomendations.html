@@ -14,120 +14,14 @@
                             onclick={handleValidateConfigurations}
                             disabled={isButtonGroupDisabled}>
                         </lightning-button>
-                        <lightning-button 
-                            label="Optimise Instructions" 
-                            icon-name="utility:magicwand"
-                            onclick={handleOptimiseInstructions}
-                            disabled={isButtonGroupDisabled}>
-                        </lightning-button>
                     </lightning-button-group>
                 </div>
-                <lightning-button-icon
-                    icon-name="utility:search"
-                    variant="brand"
-                    alternative-text="Search"
-                    title="Search"
-                    onclick={handleSearchClick}
-                    disabled={isButtonGroupDisabled}>
-                </lightning-button-icon>
             </div>
-
-            <!-- Search Modal -->
-            <template if:true={isSearchModalOpen}>
-                <section role="dialog" tabindex="-1" class="slds-modal slds-fade-in-open slds-modal_large">
-                    <div class="slds-modal__container">
-                        <!-- Modal Header -->
-                        <header class="slds-modal__header">
-                            <lightning-button-icon
-                                icon-name="utility:close"
-                                alternative-text="Close"
-                                title="Close"
-                                variant="inverse"
-                                class="slds-modal__close slds-button_icon-inverse"
-                                onclick={handleCloseModal}>
-                            </lightning-button-icon>
-                            <h2 class="slds-modal__title slds-hyphenate">Validation Results</h2>
-                        </header>
-                        <!-- Modal Body -->
-                        <div class="slds-modal__content slds-p-around_medium">
-                            <div class="slds-p-top_medium" if:true={validationResults}>
-                                <div class="slds-box slds-theme_default">
-                                    <template for:each={validationResults} for:item="result">
-                                        <div key={result.id}>
-                                            <div class="slds-text-body_regular">
-                                                <lightning-formatted-rich-text 
-                                                    value={result.description}
-                                                    class="slds-text-body_regular">
-                                                </lightning-formatted-rich-text>
-                                            </div>
-                                        </div>
-                                    </template>
-                                </div> 
-                            </div>
-                            <!-- Search Results will go here -->
-                        </div>
-                    </div>
-                </section>
-                <div class="slds-backdrop slds-backdrop_open"></div>
-            </template>
-
-            <!-- Optimization Instructions Modal -->
-            <template if:true={isOptimizeModalOpen}>
-                <section role="dialog" tabindex="-1" class="slds-modal slds-fade-in-open slds-modal_medium">
-                    <div class="slds-modal__container">
-                        <!-- Modal Header -->
-                        <header class="slds-modal__header">
-                            <lightning-button-icon
-                                icon-name="utility:close"
-                                alternative-text="Close"
-                                title="Close"
-                                variant="inverse"
-                                class="slds-modal__close slds-button_icon-inverse"
-                                onclick={handleCloseOptimizeModal}>
-                            </lightning-button-icon>
-                            <h2 class="slds-modal__title slds-hyphenate">Optimize Instructions</h2>
-                        </header>
-                        <!-- Modal Body -->
-                        <div class="slds-modal__content slds-p-around_medium">
-                            <div class="slds-form-element">
-                                <label class="slds-form-element__label" for="optimizeInstructions">
-                                    What would you like to optimize?
-                                </label>
-                                <div class="slds-form-element__control">
-                                    <lightning-textarea
-                                        id="optimizeInstructions"
-                                        name="optimizeInstructions"
-                                        value={optimizeInstructions}
-                                        onchange={handleOptimizeInstructionsChange}
-                                        placeholder="Describe what aspects of the agent you'd like to optimize..."
-                                        class="slds-textarea">
-                                    </lightning-textarea>
-                                </div>
-                            </div>
-                        </div>
-                        <!-- Modal Footer -->
-                        <footer class="slds-modal__footer">
-                            <lightning-button
-                                label="Cancel"
-                                onclick={handleCloseOptimizeModal}
-                                class="slds-m-right_x-small">
-                            </lightning-button>
-                            <lightning-button
-                                label="Submit"
-                                variant="brand"
-                                onclick={handleSubmitOptimizeInstructions}
-                                disabled={isOptimizeButtonDisabled}>
-                            </lightning-button>
-                        </footer>
-                    </div>
-                </section>
-                <div class="slds-backdrop slds-backdrop_open"></div>
-            </template>
 
             <!-- Loading Spinner -->
             <template if:true={isLoading}>
-                <div class="slds-is-relative slds-p-top_medium">
-                    <lightning-spinner alternative-text="Loading" size="medium"></lightning-spinner>
+                <div class="slds-is-relative slds-p-top_medium slds-is-fixed slds-is-absolute slds-align_absolute-center slds-size_full slds-backdrop slds-backdrop_open">
+                    <lightning-spinner alternative-text="Loading" size="large"></lightning-spinner>
                 </div>
             </template>
 
@@ -147,12 +41,6 @@
                 </div> 
             </div>
 
-            <!-- Splash Screen -->
-            <!-- <div class="slds-align-middle slds-p-top_medium">
-                <div class="slds-text-align_center">
-                    <p class="slds-text-heading_medium">{splashScreenText}</p>
-                </div>
-            </div> -->
         </div>
     </lightning-card>
 </template>

@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomLabels xmlns="http://soap.sforce.com/2006/04/metadata">
+    <labels>
+        <fullName>Agentforce_Hero_Desc</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Hero Description Part 1</shortDescription>
+        <value>Resolve customer cases, improve sales, and anticipate customer needs with autonomous agents.</value>
+    </labels>
+    <labels>
+        <fullName>Agentforce_Hero_Desc_Cont</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Hero Description Part 2</shortDescription>
+        <value>When you&apos;re ready to dive in, here are three ways to start using Agentforce.</value>
+    </labels>
+    <labels>
+        <fullName>Agentforce_Launch_Action</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Launch Card Action</shortDescription>
+        <value>Start Building</value>
+    </labels>
+    <labels>
+        <fullName>Agentforce_Launch_Description</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Launch Card Description</shortDescription>
+        <value>Navigate to &lt;strong&gt;Agents&lt;/strong&gt; in Setup and select &lt;strong&gt;New Agent&lt;/strong&gt; to create one from scratch or start with a pre-built skill.</value>
+    </labels>
+    <labels>
+        <fullName>Agentforce_Launch_Title</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Launch Card Title</shortDescription>
+        <value>Build an Agent</value>
+    </labels>
+    <labels>
+        <fullName>Agentforce_Learn_Action</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Learn Card Action</shortDescription>
+        <value>Go to Salesforce Help</value>
+    </labels>
+    <labels>
+        <fullName>Agentforce_Learn_Description</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Learn Card Description</shortDescription>
+        <value>Check out an overview or dig into the details of setting up, launching, and fine-tuning Agentforce.</value>
+    </labels>
+    <labels>
+        <fullName>Agentforce_Learn_Title</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Learn Card Title</shortDescription>
+        <value>Learn About Agentforce</value>
+    </labels>
+    <labels>
+        <fullName>Agentforce_Practice_Action</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Practice Card Action</shortDescription>
+        <value>Take Me to Trailhead</value>
+    </labels>
+    <labels>
+        <fullName>Agentforce_Practice_Description</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Practice Card Description</shortDescription>
+        <value>Follow detailed pointers and step-by-step instructions on Trailhead to practice setting up and deploying an agent.</value>
+    </labels>
+    <labels>
+        <fullName>Agentforce_Practice_Title</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Practice Card Title</shortDescription>
+        <value>Practice Creating an Agent</value>
+    </labels>
+    <labels>
+        <fullName>Agentforce_Welcome_Title</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Welcome Hero Title</shortDescription>
+        <value>Welcome to Agentforce</value>
+    </labels>
+</CustomLabels>

@@ -1,0 +1,44 @@
+{
+  "status": 0,
+  "result": [
+    {
+      "createdById": "005gL000000lQwkQAE",
+      "createdByName": "Francesco Iervolino",
+      "createdDate": "2025-03-22T06:04:17.000Z",
+      "fileName": "contentassets/Screenshot_20250322_at_50136pm.asset",
+      "fullName": "Screenshot_20250322_at_50136pm",
+      "id": "03SgL0000009b8PUAQ",
+      "lastModifiedById": "005gL000000lQwkQAE",
+      "lastModifiedByName": "Francesco Iervolino",
+      "lastModifiedDate": "2025-03-22T06:04:17.000Z",
+      "manageableState": "unmanaged",
+      "type": "ContentAsset"
+    },
+    {
+      "createdById": "005gL000000lQwkQAE",
+      "createdByName": "Francesco Iervolino",
+      "createdDate": "2025-03-22T07:25:57.000Z",
+      "fileName": "contentassets/astroagentforcefly.asset",
+      "fullName": "astroagentforcefly",
+      "id": "03SgL0000009e4fUAA",
+      "lastModifiedById": "005gL000000lQwkQAE",
+      "lastModifiedByName": "Francesco Iervolino",
+      "lastModifiedDate": "2025-03-22T07:25:57.000Z",
+      "manageableState": "unmanaged",
+      "type": "ContentAsset"
+    },
+    {
+      "createdById": "005gL000000hXITQA2",
+      "createdByName": "OrgFarm EPIC",
+      "createdDate": "2025-03-20T06:59:03.000Z",
+      "fileName": "contentassets/Platform_Design.asset",
+      "fullName": "Platform_Design",
+      "id": "03SgL0000008Ec5UAE",
+      "lastModifiedById": "005gL000000hXITQA2",
+      "lastModifiedByName": "OrgFarm EPIC",
+      "lastModifiedDate": "2025-03-20T06:59:03.000Z",
+      "manageableState": "unmanaged",
+      "type": "ContentAsset"
+    }
+  ]
+}

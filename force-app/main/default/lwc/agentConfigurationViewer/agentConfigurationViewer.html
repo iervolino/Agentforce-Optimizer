@@ -10,11 +10,9 @@
 
     <!-- Loading spinner -->
     <template if:true={isLoading}>
-        <lightning-card title="Agent Configuration Viewer" icon-name="standard:bot">
-            <div class="slds-is-relative" style="min-height: 100px">
-                <lightning-spinner alternative-text="Loading" size="medium"></lightning-spinner>
-            </div>
-        </lightning-card>
+        <div class="slds-is-relative slds-p-top_medium slds-is-fixed slds-is-absolute slds-align_absolute-center slds-size_full slds-backdrop slds-backdrop_open">
+            <lightning-spinner alternative-text="Loading" size="large"></lightning-spinner>
+        </div>
     </template>
 
     <!-- Error state -->

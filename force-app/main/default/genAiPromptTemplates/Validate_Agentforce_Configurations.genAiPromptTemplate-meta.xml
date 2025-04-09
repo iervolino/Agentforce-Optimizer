@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <GenAiPromptTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
-    <activeVersionIdentifier>HcaMSS4/hZXXX3jccKQIf1TNO6IhIgn0rjtuuaEShq4=_3</activeVersionIdentifier>
+    <activeVersionIdentifier>HcaMSS4/hZXXX3jccKQIf1TNO6IhIgn0rjtuuaEShq4=_9</activeVersionIdentifier>
     <description>Template to validate agentforce configuration alignment to best practices</description>
     <developerName>Validate_Agentforce_Configurations</developerName>
     <masterLabel>Validate Agentforce Configurations</masterLabel>
@@ -151,6 +151,327 @@ The response needs to be nicely formatted in html and use emoji to indicate posi
             <referenceName>Apex:GenAIMetadataServiceRetriever</referenceName>
         </templateDataProviders>
         <versionIdentifier>HcaMSS4/hZXXX3jccKQIf1TNO6IhIgn0rjtuuaEShq4=_3</versionIdentifier>
+    </templateVersions>
+    <templateVersions>
+        <content>You are a Salesforce Admin configuring Agentforce going through the configuration of Topics, Instructions, and Actions. I want to you to evaluate it against the following best practices outlined in the Agentforce Implementation Guide. For each area, indicate whether your configuration adheres to these guidelines by responding with &apos;Yes&apos;, &apos;No&apos;, or &apos;Needs Improvement&apos;, and provide specific examples from your configuration or justifications where necessary.
+
+Topics:
+Distinct and Separate Topics: Evaluate whether your topics are distinct and separate from each other to ensure accurate classification. For example, do you avoid creating broad topics like &apos;Product Support&apos; or &apos;Troubleshooting&apos; that could encompass many different issues? If no, provide an example of a broad topic you have and how it might be improved.
+Clear Topic Label: Does each topic in your configuration have a clear and concise Topic Label that accurately reflects its specific function within the Agent Builder? Provide an example of a Topic Label.
+Semantically Distinct Classification Description: For each topic, review its Classification Description (the 1-4 sentence summary). Is it semantically distinct from other topics, especially those with closely related meanings, to ensure accurate triggering of the topic by the reasoning engine? Provide an example of a Classification Description and briefly explain how it is distinct from a similar topic. Consider: Could an agent or the LLM easily differentiate this topic based on the description?
+
+Instructions:
+Minimum Necessary Instructions: For each topic and its associated goal in your Agent Builder configuration, have you included the minimum necessary number of instructions to accomplish the goal effectively? If you have a topic with many instructions, briefly explain why and if there&apos;s potential to simplify.
+Avoid Conflicting and Complicated Instructions: Review your instructions in Agent Builder. Are they written to avoid conflicting or overly complicated steps? Provide an example if you find one.
+Avoid Multi-Step Instructions: Do your instructions in Agent Builder avoid encoding multi-step processes into a single instruction (e.g., avoid instructions like &apos;do this, then that, then that, etc.&apos;)? Provide an example if you find one and how it could be broken down.
+Iterative Approach: Have you approached instruction writing with the understanding that you should start with minimal instructions and plan for iteration based on testing?
+Clarity for Non-Experts: When writing instructions in Agent Builder, have you considered that agents might not automatically understand your business terminology, technology, or processes? Provide an example of an instruction where you considered this.
+Mindful Language: Are you mindful of your language choice in the instructions within Agent Builder to ensure clarity and avoid ambiguity?
+
+Actions:
+Number of Actions per Agent: For each agent you&apos;ve configured (reviewing the associated topics and their actions in Agent Builder), is the total number of actions generally kept to about 10 or fewer? If you have significantly more for a particular topic, explain why and if you&apos;ve considered splitting the topic.
+&apos;API Name Already in Use&apos; Error: If you encountered an &apos;API name is already in use&apos; error while creating an action in Agent Builder, did you return to &apos;New Action&apos; and select &apos;Add from Asset Library&apos; instead of trying to create it again?
+
+Please provide your evaluation based on these points with &apos;Yes&apos;, &apos;No&apos;, or &apos;Needs Improvement&apos; for each, along with specific examples or justifications.
+The response needs to be nicely formatted in html and use emoji to indicate positive, negative or neutral feedback.
+
+[CONFIGURATION BEGIN]
+
+{!$Apex:GenAIMetadataServiceRetriever.Prompt}
+
+[CONFIGURATION END]
+</content>
+        <inputs>
+            <apiName>AgentId</apiName>
+            <definition>primitive://String</definition>
+            <masterLabel>AgentId</masterLabel>
+            <referenceName>Input:AgentId</referenceName>
+            <required>true</required>
+        </inputs>
+        <primaryModel>sfdc_ai__DefaultGPT4Omni</primaryModel>
+        <status>Published</status>
+        <templateDataProviders>
+            <definition>apex://GenAIMetadataServiceRetriever</definition>
+            <parameters>
+                <definition>primitive://String</definition>
+                <isRequired>true</isRequired>
+                <parameterName>AgentId</parameterName>
+                <valueExpression>{!$Input:AgentId}</valueExpression>
+            </parameters>
+            <referenceName>Apex:GenAIMetadataServiceRetriever</referenceName>
+        </templateDataProviders>
+        <versionIdentifier>HcaMSS4/hZXXX3jccKQIf1TNO6IhIgn0rjtuuaEShq4=_4</versionIdentifier>
+    </templateVersions>
+    <templateVersions>
+        <content>You are a Salesforce Admin configuring Agentforce going through the configuration of Topics, Instructions, and Actions. I want to you to evaluate it against the following best practices outlined in the Agentforce Implementation Guide. For each area, indicate whether your configuration adheres to these guidelines by responding with &apos;Yes&apos;, &apos;No&apos;, or &apos;Needs Improvement&apos;, and provide specific examples from your configuration or justifications where necessary.
+
+**Best Practices for Topics:**
+*  Requirements are that topics need to be **distinct and separate** for accurate classification.
+*  Avoid creating both a &quot;Product Support&quot; and a &quot;Troubleshooting&quot; topic; these should be distinct.
+*  A topic&apos;s label should clearly reflect its purpose so the reasoning engine can easily differentiate it from other topics.
+*  The **classification description** should be semantically distinct from other topics to aid in accurate classification.
+*  Define the **topic&apos;s scope**, outlining what the agent is intended to handle and what it cannot.
+
+**Best Practices for Instructions:**
+*  Include the **minimum number of instructions** necessary to achieve the desired goal.
+*  **Avoid conflicting and overly complicated instructions**.
+*  Try to **avoid encoding multi-step user flows directly as a sequence of instructions** (e.g., &quot;do this, then do that&quot;). Instead, focus on individual, clear instructions.
+*  Start with **minimal instructions** and iterate based on testing and performance.
+*  Recognize that **agents do not inherently understand complex business terminology or internal processes**; instructions should be clear and explicit.
+*  Be mindful of the **language used** in instructions to ensure clarity and avoid ambiguity.
+
+**Best Practices for Actions:**
+*  Aim to keep the number of actions within a single topic to **around 10 or fewer**. If more are needed, consider splitting the functionality into separate topics.
+*  Be aware that a very large number of total actions across all agents (significantly beyond 30) can potentially lead to **slowness in starting sessions**.
+*  Ensure that the **data type of the information expected by an action** (e.g., for input or output) is clearly defined and aligns with what is feasible for the agent to process (e.g., an &quot;18-character ID&quot; or a &quot;rich-text answer&quot;).
+*  For actions involving specific fields or values (like contact information or dates), ensure that the instructions clearly specify what data is needed and its expected format.
+*  Understand **how the action retrieves, generates, or updates information** in the underlying systems.
+*  Be aware of any **special rules or constraints** governing how an action should be used (e.g., avoiding specific types of queries or conditions under which an action is mandatory or prohibited).
+*  If using **Prompt Templates** within actions, ensure the contact information required for personalization is valid and correctly chained from preceding actions.
+
+Please provide your evaluation based on these points with &apos;Yes&apos;, &apos;No&apos;, or &apos;Needs Improvement&apos; for each, along with specific examples or justifications.
+The response needs to be nicely formatted in html and use emoji to indicate positive, negative or neutral feedback.
+
+[CONFIGURATION BEGIN]
+
+{!$Apex:GenAIMetadataServiceRetriever.Prompt}
+
+[CONFIGURATION END]
+</content>
+        <inputs>
+            <apiName>AgentId</apiName>
+            <definition>primitive://String</definition>
+            <masterLabel>AgentId</masterLabel>
+            <referenceName>Input:AgentId</referenceName>
+            <required>true</required>
+        </inputs>
+        <primaryModel>sfdc_ai__DefaultGPT4Omni</primaryModel>
+        <status>Published</status>
+        <templateDataProviders>
+            <definition>apex://GenAIMetadataServiceRetriever</definition>
+            <parameters>
+                <definition>primitive://String</definition>
+                <isRequired>true</isRequired>
+                <parameterName>AgentId</parameterName>
+                <valueExpression>{!$Input:AgentId}</valueExpression>
+            </parameters>
+            <referenceName>Apex:GenAIMetadataServiceRetriever</referenceName>
+        </templateDataProviders>
+        <versionIdentifier>HcaMSS4/hZXXX3jccKQIf1TNO6IhIgn0rjtuuaEShq4=_5</versionIdentifier>
+    </templateVersions>
+    <templateVersions>
+        <content>You are a Salesforce Admin configuring Agentforce going through the configuration of Topics, Instructions, and Actions. I want to you to evaluate it against the following best practices outlined in the Agentforce Implementation Guide. For each area, indicate whether your configuration adheres to these guidelines by responding with &apos;Yes&apos;, &apos;No&apos;, or &apos;Needs Improvement&apos;, and provide specific examples from your configuration or justifications where necessary.
+
+**Best Practices for Topics:**
+*  Requirements are that topics need to be **distinct and separate** for accurate classification. For example, avoid creating both a &quot;Product Support&quot; and a &quot;Troubleshooting&quot; topic; these should be distinct.
+*  A topic&apos;s label should clearly reflect its purpose so the reasoning engine can easily differentiate it from other topics.
+*  The **classification description** should be semantically distinct from other topics to aid in accurate classification.
+*  Define the **topic&apos;s scope**, outlining what the agent is intended to handle and what it cannot.
+
+**Best Practices for Instructions:**
+*  Include the **minimum number of instructions** necessary to achieve the desired goal.
+*  **Avoid conflicting and overly complicated instructions**.
+*  Try to **avoid encoding multi-step user flows directly as a sequence of instructions** (e.g., &quot;do this, then do that&quot;). Instead, focus on individual, clear instructions.
+*  Start with **minimal instructions** and iterate based on testing and performance.
+*  Recognize that **agents do not inherently understand complex business terminology or internal processes**; instructions should be clear and explicit.
+*  Be mindful of the **language used** in instructions to ensure clarity and avoid ambiguity.
+
+**Best Practices for Actions:**
+*  Aim to keep the number of actions within a single topic to **around 10 or fewer**. If more are needed, consider splitting the functionality into separate topics.
+*  Be aware that a very large number of total actions across all agents (significantly beyond 30) can potentially lead to **slowness in starting sessions**.
+*  Ensure that the **data type of the information expected by an action** (e.g., for input or output) is clearly defined and aligns with what is feasible for the agent to process (e.g., an &quot;18-character ID&quot; or a &quot;rich-text answer&quot;).
+*  For actions involving specific fields or values (like contact information or dates), ensure that the instructions clearly specify what data is needed and its expected format.
+*  Understand **how the action retrieves, generates, or updates information** in the underlying systems.
+*  Be aware of any **special rules or constraints** governing how an action should be used (e.g., avoiding specific types of queries or conditions under which an action is mandatory or prohibited).
+*  If using **Prompt Templates** within actions, ensure the contact information required for personalization is valid and correctly chained from preceding actions.
+
+Please provide your evaluation based on these points with &apos;Yes&apos;, &apos;No&apos;, or &apos;Needs Improvement&apos; for each, along with specific examples or justifications. If changes are suggested, be specific and provide exactly what to change.
+The response needs to be nicely formatted in html and use emoji to indicate positive, negative or neutral feedback.
+
+[CONFIGURATION BEGIN]
+
+{!$Apex:GenAIMetadataServiceRetriever.Prompt}
+
+[CONFIGURATION END]
+</content>
+        <inputs>
+            <apiName>AgentId</apiName>
+            <definition>primitive://String</definition>
+            <masterLabel>AgentId</masterLabel>
+            <referenceName>Input:AgentId</referenceName>
+            <required>true</required>
+        </inputs>
+        <primaryModel>sfdc_ai__DefaultGPT4Omni</primaryModel>
+        <status>Published</status>
+        <templateDataProviders>
+            <definition>apex://GenAIMetadataServiceRetriever</definition>
+            <parameters>
+                <definition>primitive://String</definition>
+                <isRequired>true</isRequired>
+                <parameterName>AgentId</parameterName>
+                <valueExpression>{!$Input:AgentId}</valueExpression>
+            </parameters>
+            <referenceName>Apex:GenAIMetadataServiceRetriever</referenceName>
+        </templateDataProviders>
+        <versionIdentifier>HcaMSS4/hZXXX3jccKQIf1TNO6IhIgn0rjtuuaEShq4=_6</versionIdentifier>
+    </templateVersions>
+    <templateVersions>
+        <content>You are an expert in configuring Agentforce Topics, Instructions, and Actions based on best practices. You have to evaluate the configurations against the following best practices outlined in the Agentforce Implementation Guide. For each area, indicate whether your configuration adheres to these guidelines by responding with &apos;Yes&apos;, &apos;No&apos;, or &apos;Needs Improvement&apos;, and provide specific examples from your configuration or justifications where necessary. If changes are suggested, be specific and provide exactly what to change.
+
+**Best Practices for Topics:**
+*  Requirements are that topics need to be **distinct and separate** for accurate classification. For example, avoid creating both a &quot;Product Support&quot; and a &quot;Troubleshooting&quot; topic; these should be distinct.
+*  A topic&apos;s label should clearly reflect its purpose so the reasoning engine can easily differentiate it from other topics.
+*  The **classification description** should be semantically distinct from other topics to aid in accurate classification.
+*  Define the **topic&apos;s scope**, outlining what the agent is intended to handle and what it cannot.
+
+**Best Practices for Instructions:**
+*  Include the **minimum number of instructions** necessary to achieve the desired goal.
+*  **Avoid conflicting and overly complicated instructions**.
+*  Try to **avoid encoding multi-step user flows directly as a sequence of instructions** (e.g., &quot;do this, then do that&quot;). Instead, focus on individual, clear instructions.
+*  Start with **minimal instructions** and iterate based on testing and performance.
+*  Recognize that **agents do not inherently understand complex business terminology or internal processes**; instructions should be clear and explicit.
+*  Be mindful of the **language used** in instructions to ensure clarity and avoid ambiguity.
+
+**Best Practices for Actions:**
+*  Aim to keep the number of actions within a single topic to **around 10 or fewer**. If more are needed, consider splitting the functionality into separate topics.
+*  Be aware that a very large number of total actions across all agents (significantly beyond 30) can potentially lead to **slowness in starting sessions**.
+*  Ensure that the **data type of the information expected by an action** (e.g., for input or output) is clearly defined and aligns with what is feasible for the agent to process (e.g., an &quot;18-character ID&quot; or a &quot;rich-text answer&quot;).
+*  For actions involving specific fields or values (like contact information or dates), ensure that the instructions clearly specify what data is needed and its expected format.
+*  Understand **how the action retrieves, generates, or updates information** in the underlying systems.
+*  Be aware of any **special rules or constraints** governing how an action should be used (e.g., avoiding specific types of queries or conditions under which an action is mandatory or prohibited).
+*  If using **Prompt Templates** within actions, ensure the contact information required for personalization is valid and correctly chained from preceding actions.
+
+The response needs to be nicely formatted in html and use emoji to indicate positive, negative or neutral feedback.
+
+[CONFIGURATION BEGIN]
+
+{!$Apex:GenAIMetadataServiceRetriever.Prompt}
+
+[CONFIGURATION END]
+</content>
+        <inputs>
+            <apiName>AgentId</apiName>
+            <definition>primitive://String</definition>
+            <masterLabel>AgentId</masterLabel>
+            <referenceName>Input:AgentId</referenceName>
+            <required>true</required>
+        </inputs>
+        <primaryModel>sfdc_ai__DefaultGPT4Omni</primaryModel>
+        <status>Published</status>
+        <templateDataProviders>
+            <definition>apex://GenAIMetadataServiceRetriever</definition>
+            <parameters>
+                <definition>primitive://String</definition>
+                <isRequired>true</isRequired>
+                <parameterName>AgentId</parameterName>
+                <valueExpression>{!$Input:AgentId}</valueExpression>
+            </parameters>
+            <referenceName>Apex:GenAIMetadataServiceRetriever</referenceName>
+        </templateDataProviders>
+        <versionIdentifier>HcaMSS4/hZXXX3jccKQIf1TNO6IhIgn0rjtuuaEShq4=_7</versionIdentifier>
+    </templateVersions>
+    <templateVersions>
+        <content>You are an expert in configuring Agentforce Topics, Instructions, and Actions based on best practices. You have to evaluate the configurations against the following best practices outlined in the Agentforce Implementation Guide. For each best practice, indicate whether the configuration adheres to these guidelines by responding with &apos;Yes&apos;, &apos;No&apos;, or &apos;Needs Improvement&apos;, and provide specific examples from your configuration or justifications where necessary. If changes are suggested, be specific and provide exactly what to change.
+
+**Best Practices for Topics:**
+*  Requirements are that topics need to be **distinct and separate** for accurate classification. For example, avoid creating both a &quot;Product Support&quot; and a &quot;Troubleshooting&quot; topic; these should be distinct.
+*  A topic&apos;s label should clearly reflect its purpose so the reasoning engine can easily differentiate it from other topics.
+*  The **classification description** should be semantically distinct from other topics to aid in accurate classification.
+*  Define the **topic&apos;s scope**, outlining what the agent is intended to handle and what it cannot.
+
+**Best Practices for Instructions:**
+*  Include the **minimum number of instructions** necessary to achieve the desired goal.
+*  **Avoid conflicting and overly complicated instructions**.
+*  Try to **avoid encoding multi-step user flows directly as a sequence of instructions** (e.g., &quot;do this, then do that&quot;). Instead, focus on individual, clear instructions.
+*  Start with **minimal instructions** and iterate based on testing and performance.
+*  Recognize that **agents do not inherently understand complex business terminology or internal processes**; instructions should be clear and explicit.
+*  Be mindful of the **language used** in instructions to ensure clarity and avoid ambiguity.
+
+**Best Practices for Actions:**
+*  Aim to keep the number of actions within a single topic to **around 10 or fewer**. If more are needed, consider splitting the functionality into separate topics.
+*  Be aware that a very large number of total actions across all agents (significantly beyond 30) can potentially lead to **slowness in starting sessions**.
+*  Ensure that the **data type of the information expected by an action** (e.g., for input or output) is clearly defined and aligns with what is feasible for the agent to process (e.g., an &quot;18-character ID&quot; or a &quot;rich-text answer&quot;).
+*  For actions involving specific fields or values (like contact information or dates), ensure that the instructions clearly specify what data is needed and its expected format.
+*  Understand **how the action retrieves, generates, or updates information** in the underlying systems.
+*  Be aware of any **special rules or constraints** governing how an action should be used (e.g., avoiding specific types of queries or conditions under which an action is mandatory or prohibited).
+*  If using **Prompt Templates** within actions, ensure the contact information required for personalization is valid and correctly chained from preceding actions.
+
+The response needs to be nicely formatted in html and use emoji to indicate positive, negative or neutral feedback.
+
+[CONFIGURATION BEGIN]
+
+{!$Apex:GenAIMetadataServiceRetriever.Prompt}
+
+[CONFIGURATION END]
+</content>
+        <inputs>
+            <apiName>AgentId</apiName>
+            <definition>primitive://String</definition>
+            <masterLabel>AgentId</masterLabel>
+            <referenceName>Input:AgentId</referenceName>
+            <required>true</required>
+        </inputs>
+        <primaryModel>sfdc_ai__DefaultGPT4Omni</primaryModel>
+        <status>Published</status>
+        <templateDataProviders>
+            <definition>apex://GenAIMetadataServiceRetriever</definition>
+            <parameters>
+                <definition>primitive://String</definition>
+                <isRequired>true</isRequired>
+                <parameterName>AgentId</parameterName>
+                <valueExpression>{!$Input:AgentId}</valueExpression>
+            </parameters>
+            <referenceName>Apex:GenAIMetadataServiceRetriever</referenceName>
+        </templateDataProviders>
+        <versionIdentifier>HcaMSS4/hZXXX3jccKQIf1TNO6IhIgn0rjtuuaEShq4=_8</versionIdentifier>
+    </templateVersions>
+    <templateVersions>
+        <content>You are an expert in configuring Agentforce Topics, Instructions, and Actions based on best practices. You have to evaluate the configurations against the following best practices outlined in the Agentforce Implementation Guide. For each best practice, indicate whether the configuration adheres to these guidelines by responding with &apos;Yes&apos;, &apos;No&apos;, or &apos;Needs Improvement&apos;, and provide specific examples from your configuration or justifications where necessary. If changes are suggested, be specific and provide exactly what to change.
+
+**Best Practices for Topics:**
+* Distinct and Separate Topics: Evaluate whether your topics are distinct and separate from each other to ensure accurate classification. For example, do you avoid creating broad topics like &apos;Product Support&apos; or &apos;Troubleshooting&apos; that could encompass many different issues? If no, provide an example of a broad topic you have and how it might be improved.
+* Clear Topic Label: Does each topic in your configuration have a clear and concise Topic Label that accurately reflects its specific function within the Agent Builder? Provide an example of a Topic Label.
+* Semantically Distinct Classification Description: For each topic, review its Classification Description (the 1-4 sentence summary). Is it semantically distinct from other topics, especially those with closely related meanings, to ensure accurate triggering of the topic by the reasoning engine? Provide an example of a Classification Description and briefly explain how it is distinct from a similar topic. Consider: Could an agent or the LLM easily differentiate this topic based on the description?
+
+**Best Practices for Instructions:**
+* Minimum Necessary Instructions: For each topic and its associated goal in your Agent Builder configuration, have you included the minimum necessary number of instructions to accomplish the goal effectively? If you have a topic with many instructions, briefly explain why and if there&apos;s potential to simplify.
+* Avoid Conflicting and Complicated Instructions: Review your instructions in Agent Builder. Are they written to avoid conflicting or overly complicated steps? Provide an example if you find one.
+* Avoid Multi-Step Instructions: Do your instructions in Agent Builder avoid encoding multi-step processes into a single instruction (e.g., avoid instructions like &apos;do this, then that, then that, etc.&apos;)? Provide an example if you find one and how it could be broken down.
+* Iterative Approach: Have you approached instruction writing with the understanding that you should start with minimal instructions and plan for iteration based on testing?
+* Clarity for Non-Experts: When writing instructions in Agent Builder, have you considered that agents might not automatically understand your business terminology, technology, or processes? Provide an example of an instruction where you considered this.
+* Mindful Language: Are you mindful of your language choice in the instructions within Agent Builder to ensure clarity and avoid ambiguity?
+
+**Best Practices for Actions:**
+* Number of Actions per Agent: For each agent you&apos;ve configured (reviewing the associated topics and their actions in Agent Builder), is the total number of actions generally kept to about 10 or fewer? If you have significantly more for a particular topic, explain why and if you&apos;ve considered splitting the topic.
+
+The response needs to be nicely formatted in html and use emoji to indicate positive, negative or neutral feedback.
+
+[CONFIGURATION BEGIN]
+
+{!$Apex:GenAIMetadataServiceRetriever.Prompt}
+
+[CONFIGURATION END]
+</content>
+        <inputs>
+            <apiName>AgentId</apiName>
+            <definition>primitive://String</definition>
+            <masterLabel>AgentId</masterLabel>
+            <referenceName>Input:AgentId</referenceName>
+            <required>true</required>
+        </inputs>
+        <primaryModel>sfdc_ai__DefaultGPT4Omni</primaryModel>
+        <status>Published</status>
+        <templateDataProviders>
+            <definition>apex://GenAIMetadataServiceRetriever</definition>
+            <parameters>
+                <definition>primitive://String</definition>
+                <isRequired>true</isRequired>
+                <parameterName>AgentId</parameterName>
+                <valueExpression>{!$Input:AgentId}</valueExpression>
+            </parameters>
+            <referenceName>Apex:GenAIMetadataServiceRetriever</referenceName>
+        </templateDataProviders>
+        <versionIdentifier>HcaMSS4/hZXXX3jccKQIf1TNO6IhIgn0rjtuuaEShq4=_9</versionIdentifier>
     </templateVersions>
     <type>einstein_gpt__flex</type>
     <visibility>Global</visibility>

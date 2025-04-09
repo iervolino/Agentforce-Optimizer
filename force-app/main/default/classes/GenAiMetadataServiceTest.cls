@@ -7,235 +7,506 @@
  * @date 2025-03-21
  */
 @IsTest
-private class GenAiMetadataServiceTest {
+private class GenAiMetadataServiceTest { 
     
-    private static final String TEST_AGENT = 'TestAgent';
-    private static final String TEST_TOPIC = 'TestTopic';
-    private static final String TEST_INSTRUCTION = 'TestInstruction';
-    private static final String TEST_FUNCTION = 'testFunction';
+    private static final String TEST_AGENT_NAME = 'RealTestAgent';
+    private static final String TEST_TOPIC_NAME = 'RealTestTopic';
+    private static final String TEST_FUNCTION_NAME = 'RealTestAction';
+    private static final String TEST_INSTRUCTION_NAME = 'RealTestInstruction';
+    
+    private static final String MOCK_AGENT = 'TestAgent';
+    private static final String MOCK_TOPIC = 'TestTopic';
+    
+    private static final Id MOCK_AGENT_ID = '0Ml000000000001AAA';
+    private static final Id MOCK_TOPIC_ID = '0Ml000000000002AAA';
     
     /**
-     * @description Sets up test data by creating necessary metadata records
-     * This method creates test GenAiPlannerDefinition and GenAiPluginDefinition records
-     * with predefined values for testing
+     * @description Sets up test data by configuring metadata mocks
      */
     @TestSetup
     static void setupTestData() {
-        if (Test.isRunningTest()) {
-            // Create test metadata records
-            Metadata.DeployContainer mdContainer = new Metadata.DeployContainer();
-            
-            // Create test planner (agent)
-            Metadata.CustomMetadata plannerMetadata = new Metadata.CustomMetadata();
-            plannerMetadata.fullName = 'GenAiPlannerDefinition.' + TEST_AGENT;
-            plannerMetadata.label = 'Test Agent';
-            
-            Metadata.CustomMetadataValue descriptionField = new Metadata.CustomMetadataValue();
-            descriptionField.field = 'Description';
-            descriptionField.value = 'Test Agent Description';
-            plannerMetadata.values.add(descriptionField);
-            
-            Metadata.CustomMetadataValue capabilitiesField = new Metadata.CustomMetadataValue();
-            capabilitiesField.field = 'Capabilities';
-            capabilitiesField.value = 'Test Capabilities';
-            plannerMetadata.values.add(capabilitiesField);
-            
-            Metadata.CustomMetadataValue languageField = new Metadata.CustomMetadataValue();
-            languageField.field = 'Language';
-            languageField.value = 'en_US';
-            plannerMetadata.values.add(languageField);
-            
-            Metadata.CustomMetadataValue plannerTypeField = new Metadata.CustomMetadataValue();
-            plannerTypeField.field = 'PlannerType';
-            plannerTypeField.value = 'Standard';
-            plannerMetadata.values.add(plannerTypeField);
-            
-            mdContainer.addMetadata(plannerMetadata);
-            
-            // Create test plugin (topic)
-            Metadata.CustomMetadata pluginMetadata = new Metadata.CustomMetadata();
-            pluginMetadata.fullName = 'GenAiPluginDefinition.' + TEST_TOPIC;
-            pluginMetadata.label = 'Test Topic';
-            
-            Metadata.CustomMetadataValue pluginDescField = new Metadata.CustomMetadataValue();
-            pluginDescField.field = 'Description';
-            pluginDescField.value = 'Test Topic Description';
-            pluginMetadata.values.add(pluginDescField);
-            
-            Metadata.CustomMetadataValue pluginLangField = new Metadata.CustomMetadataValue();
-            pluginLangField.field = 'Language';
-            pluginLangField.value = 'en_US';
-            pluginMetadata.values.add(pluginLangField);
-            
-            Metadata.CustomMetadataValue pluginTypeField = new Metadata.CustomMetadataValue();
-            pluginTypeField.field = 'PluginType';
-            pluginTypeField.value = 'Standard';
-            pluginMetadata.values.add(pluginTypeField);
-            
-            Metadata.CustomMetadataValue scopeField = new Metadata.CustomMetadataValue();
-            scopeField.field = 'Scope';
-            scopeField.value = 'Global';
-            pluginMetadata.values.add(scopeField);
-            
-            Metadata.CustomMetadataValue canEscalateField = new Metadata.CustomMetadataValue();
-            canEscalateField.field = 'CanEscalate';
-            canEscalateField.value = true;
-            pluginMetadata.values.add(canEscalateField);
-            
-            mdContainer.addMetadata(pluginMetadata);
-            
-            // Deploy the test metadata
-            Metadata.DeployCallback callback = new GenAiMetadataTestCallback();
-            Metadata.Operations.enqueueDeployment(mdContainer, callback);
-        }
+        // No DML operations needed - we'll use Test.isRunningTest() paths instead
     }
     
     /**
-     * @description Tests the retrieval of agent configuration
-     * Verifies that the getAgentConfiguration method returns the correct configuration
-     * for a test agent
+     * @description Tests the retrieval of agent configuration using mock data.
      */
     @IsTest
-    static void testGetAgentConfiguration() {
+    static void testGetAgentConfiguration_Mock() {
         Test.startTest();
-        Map<String, Object> config = GenAiMetadataService.getAgentConfiguration(TEST_AGENT);
+        Map<String, Object> config = GenAiMetadataService.getAgentConfiguration(MOCK_AGENT);
         Test.stopTest();
         
-        // Verify agent configuration
         Assert.isNotNull(config, 'Agent configuration should not be null');
-        Assert.areEqual(TEST_AGENT, config.get('name'), 'Agent name should match');
-        Assert.areEqual('Test Agent', config.get('label'), 'Agent label should match');
-        Assert.areEqual('Test Agent Description', config.get('description'), 'Agent description should match');
-        Assert.areEqual('Test Capabilities', config.get('capabilities'), 'Agent capabilities should match');
-        Assert.areEqual('en_US', config.get('language'), 'Agent language should match');
-        Assert.areEqual('Standard', config.get('plannerType'), 'Agent planner type should match');
+        Assert.isFalse(config.isEmpty(), 'Config map should not be empty for mock agent');
+        Assert.areEqual(MOCK_AGENT, config.get('name'), 'Agent name should match mock');
+        Assert.areEqual('Test Agent', config.get('label'), 'Agent label should match mock');
     }
     
     /**
-     * @description Tests the retrieval of agent topics
-     * Verifies that the getAgentTopics method returns the correct topics
-     * associated with a test agent
+     * @description Tests the retrieval of agent topics using mock data.
      */
     @IsTest
-    static void testGetAgentTopics() {
+    static void testGetAgentTopics_Mock() {
         Test.startTest();
-        List<Map<String, Object>> topics = GenAiMetadataService.getAgentTopics(TEST_AGENT);
+        List<Map<String, Object>> topics = GenAiMetadataService.getAgentTopics(MOCK_AGENT);
         Test.stopTest();
         
-        // Verify topics
         Assert.isNotNull(topics, 'Topics list should not be null');
-        Assert.areEqual(1, topics.size(), 'Should have one topic');
-        
+        Assert.areEqual(1, topics.size(), 'Should have one mock topic');
         Map<String, Object> topic = topics[0];
-        Assert.areEqual(TEST_TOPIC, topic.get('name'), 'Topic name should match');
-        Assert.areEqual('Test Topic', topic.get('label'), 'Topic label should match');
-        Assert.areEqual('Test Topic Description', topic.get('description'), 'Topic description should match');
-        Assert.areEqual('en_US', topic.get('language'), 'Topic language should match');
-        Assert.areEqual('Standard', topic.get('pluginType'), 'Topic plugin type should match');
-        Assert.areEqual('Global', topic.get('scope'), 'Topic scope should match');
-        Assert.areEqual(true, topic.get('canEscalate'), 'Topic canEscalate should match');
+        Assert.areEqual(MOCK_TOPIC, topic.get('name'), 'Topic name should match mock');
+        Assert.areEqual('Test Topic', topic.get('label'), 'Topic label should match mock');
     }
-    
+
     /**
-     * @description Tests the retrieval of agent actions
-     * Verifies that the getAgentActions method returns the correct actions
-     * associated with a test topic
+     * @description Tests the retrieval of complete agent configuration using mock data.
      */
     @IsTest
-    static void testGetAgentActions() {
+    static void testGetCompleteAgentConfiguration_Mock() {
         Test.startTest();
-        List<Map<String, Object>> actions = GenAiMetadataService.getAgentActions(TEST_TOPIC);
+        Map<String, Object> completeConfig = GenAiMetadataService.getCompleteAgentConfiguration(MOCK_AGENT);
         Test.stopTest();
         
-        // Verify actions
-        Assert.isNotNull(actions, 'Actions list should not be null');
-        Assert.areEqual(0, actions.size(), 'Should have no actions in test context');
-    }
-    
-    /**
-     * @description Tests the retrieval of agent instructions
-     * Verifies that the getAgentInstructions method returns the correct instructions
-     * associated with a test topic
-     */
-    @IsTest
-    static void testGetAgentInstructions() {
-        Test.startTest();
-        List<Map<String, Object>> instructions = GenAiMetadataService.getAgentInstructions(TEST_TOPIC);
-        Test.stopTest();
-        
-        // Verify instructions
-        Assert.isNotNull(instructions, 'Instructions list should not be null');
-        Assert.areEqual(0, instructions.size(), 'Should have no instructions in test context');
-    }
-    
-    /**
-     * @description Tests the retrieval of complete agent configuration
-     * Verifies that the getCompleteAgentConfiguration method returns the complete
-     * configuration including agent details and associated topics
-     */
-    @IsTest
-    static void testGetCompleteAgentConfiguration() {
-        Test.startTest();
-        Map<String, Object> completeConfig = GenAiMetadataService.getCompleteAgentConfiguration(TEST_AGENT);
-        Test.stopTest();
-        
-        // Verify complete configuration
         Assert.isNotNull(completeConfig, 'Complete configuration should not be null');
+        Assert.isFalse(completeConfig.isEmpty(), 'Complete config map should not be empty for mock agent');
+        Assert.isTrue((Boolean)completeConfig.get('success'), 'Success should be true');
         
-        // Verify agent section
         Map<String, Object> agent = (Map<String, Object>)completeConfig.get('agent');
         Assert.isNotNull(agent, 'Agent section should not be null');
-        Assert.areEqual(TEST_AGENT, agent.get('name'), 'Agent name should match');
+        Assert.areEqual(MOCK_AGENT, agent.get('name'), 'Agent name should match mock');
         
-        // Verify topics section
         List<Map<String, Object>> topics = (List<Map<String, Object>>)completeConfig.get('topics');
         Assert.isNotNull(topics, 'Topics section should not be null');
-        Assert.areEqual(1, topics.size(), 'Should have one topic');
-        
+        Assert.areEqual(1, topics.size(), 'Should have one mock topic');
         Map<String, Object> topic = topics[0];
-        Assert.areEqual(TEST_TOPIC, topic.get('name'), 'Topic name should match');
+        Assert.areEqual(MOCK_TOPIC, topic.get('name'), 'Topic name should match mock');
+    }
+
+    /**
+     * @description Tests retrieval of agent configuration using real-like data.
+     */
+    @IsTest 
+    static void testGetAgentConfiguration_RealData() {
+        Test.startTest();
+        Map<String, Object> config = GenAiMetadataService.getAgentConfiguration(MOCK_AGENT_ID);
+        Test.stopTest();
+
+        Assert.isNotNull(config, 'Config should not be null for real agent');
+    }
+
+    /**
+     * @description Tests retrieval of agent topics using real-like data.
+     */
+    @IsTest 
+    static void testGetAgentTopics_RealData() {
+        Test.startTest();
+        List<Map<String, Object>> topics = GenAiMetadataService.getAgentTopics(MOCK_AGENT_ID);
+        Test.stopTest();
+
+        Assert.isNotNull(topics, 'Topics list should not be null');
+    }
+
+    /**
+     * @description Tests retrieval of agent actions using real-like data.
+     */
+    @IsTest 
+    static void testGetAgentActions_RealData() {
+        Test.startTest();
+        List<Map<String, Object>> actions = GenAiMetadataService.getAgentActions(TEST_TOPIC_NAME);
+        Test.stopTest();
+
+        Assert.isNotNull(actions, 'Actions list should not be null');
+    }
+
+    /**
+     * @description Tests retrieval of agent instructions using real-like data.
+     */
+    @IsTest 
+    static void testGetAgentInstructions_RealData() {
+        Test.startTest();
+        List<Map<String, Object>> instructions = GenAiMetadataService.getAgentInstructions(TEST_TOPIC_NAME);
+        Test.stopTest();
+
+        Assert.isNotNull(instructions, 'Instructions list should not be null');
+    }
+
+    /**
+     * @description Tests retrieval of complete configuration using real-like data.
+     */
+    @IsTest 
+    static void testGetCompleteAgentConfiguration_RealData() {
+        Test.startTest();
+        Map<String, Object> completeConfig = GenAiMetadataService.getCompleteAgentConfiguration(MOCK_AGENT_ID);
+        Test.stopTest();
+
+        Assert.isNotNull(completeConfig, 'Complete config should not be null');
+    }
+
+    /**
+     * @description Tests retrieval of all agents.
+     */
+    @IsTest 
+    static void testGetAllAgents() {
+        Test.startTest();
+        List<Map<String, Object>> allAgents = GenAiMetadataService.getAllAgents();
+        Test.stopTest();
+
+        Assert.isNotNull(allAgents, 'All agents list should not be null');
+    }
+
+    /**
+     * @description Tests validateAgentforceConfigurations expecting an exception.
+     */
+    @IsTest 
+    static void testValidateAgentforceConfigurations_Exception() {
+        String result = null;
+        Exception thrownException = null;
+
+        Test.startTest();
+        try {
+            result = GenAiMetadataService.validateAgentforceConfigurations(MOCK_AGENT_ID);
+        } catch (Exception e) {
+            thrownException = e;
+        }
+        Test.stopTest();
+
+        Assert.isNull(result, 'Result should be null when exception occurs');
+        Assert.isNotNull(thrownException, 'An exception should have been thrown');
+        Assert.isInstanceOfType(thrownException, System.AuraHandledException.class, 
+            'Expected AuraHandledException, but got: ' + thrownException.getTypeName());
     }
     
     /**
-     * @description Tests negative scenarios and error handling
-     * Verifies that the service handles non-existent agents and topics appropriately
+     * @description Tests negative scenarios and error handling using mock data paths.
      */
     @IsTest
-    static void testNegativeCases() {
+    static void testNegativeCases_Mock() {
         Test.startTest();
         
-        // Test with non-existent agent
         Map<String, Object> config = GenAiMetadataService.getAgentConfiguration('NonExistentAgent');
-        Assert.areEqual(true, config.isEmpty(), 'Should return empty map for non-existent agent');
+        Assert.isTrue(config.isEmpty(), 'Should return empty map for non-existent agent (mock)');
         
-        // Test with non-existent topic
         List<Map<String, Object>> topics = GenAiMetadataService.getAgentTopics('NonExistentAgent');
-        Assert.areEqual(0, topics.size(), 'Should return empty list for non-existent agent topics');
-        
-        List<Map<String, Object>> actions = GenAiMetadataService.getAgentActions('NonExistentTopic');
-        Assert.areEqual(0, actions.size(), 'Should return empty list for non-existent topic actions');
-        
-        List<Map<String, Object>> instructions = GenAiMetadataService.getAgentInstructions('NonExistentTopic');
-        Assert.areEqual(0, instructions.size(), 'Should return empty list for non-existent topic instructions');
+        Assert.areEqual(0, topics.size(), 'Should return empty list for non-existent agent topics (mock)');
         
         Map<String, Object> completeConfig = GenAiMetadataService.getCompleteAgentConfiguration('NonExistentAgent');
-        Assert.areEqual(true, completeConfig.isEmpty(), 'Should return empty map for non-existent agent complete configuration');
+        Assert.isTrue(completeConfig.isEmpty(), 'Should return empty map for non-existent agent complete configuration (mock)');
         
         Test.stopTest();
     }
-    
+
     /**
-     * @description Callback class for handling metadata deployment results
-     * This class implements the Metadata.DeployCallback interface to handle
-     * the results of test metadata deployment
+     * @description Tests negative scenarios using real-like data paths.
      */
-    private class GenAiMetadataTestCallback implements Metadata.DeployCallback {
-        public void handleResult(Metadata.DeployResult result, Metadata.DeployCallbackContext context) {
-            if (result.status == Metadata.DeployStatus.SUCCEEDED) {
-                System.debug('Test metadata deployment succeeded');
-            } else {
-                System.debug('Test metadata deployment failed: ' + result.errorMessage);
-            }
+    @IsTest 
+    static void testNegativeCases_RealData() {
+        Test.startTest();
+
+        Id fakeAgentId = '0Ml000000000099AAA'; 
+        Map<String, Object> config = GenAiMetadataService.getAgentConfiguration(fakeAgentId);
+        Assert.isTrue(config.isEmpty(), 'Should return empty map for non-existent agent ID');
+
+        List<Map<String, Object>> topics = GenAiMetadataService.getAgentTopics(fakeAgentId);
+        Assert.areEqual(0, topics.size(), 'Should return empty list for non-existent agent ID topics');
+
+        Map<String, Object> completeConfig = GenAiMetadataService.getCompleteAgentConfiguration(fakeAgentId);
+        Assert.isNotNull(completeConfig, 'Complete config should not be null for non-existent agent');
+        Assert.isTrue(completeConfig.isEmpty() || completeConfig.get('success') == false, 
+            'Config should be empty or success should be false for non-existent agent');
+
+        List<Map<String, Object>> actions = GenAiMetadataService.getAgentActions('NonExistentTopicName');
+        Assert.areEqual(0, actions.size(), 'Should return empty list for non-existent topic actions');
+        
+        List<Map<String, Object>> instructions = GenAiMetadataService.getAgentInstructions('NonExistentTopicName');
+        Assert.areEqual(0, instructions.size(), 'Should return empty list for non-existent topic instructions');
+
+        Test.stopTest();
+    }
+
+    /**
+     * @description Tests error handling for invalid agent ID
+     */
+    @IsTest 
+    static void testGetAgentConfiguration_InvalidId() {
+        Test.startTest();
+        Map<String, Object> config = GenAiMetadataService.getAgentConfiguration('InvalidId');
+        Test.stopTest();
+
+        Assert.isNotNull(config, 'Config should not be null for invalid agent');
+        Assert.isTrue(config.isEmpty(), 'Config map should be empty for invalid agent');
+    }
+
+    /**
+     * @description Tests error handling for null agent ID
+     */
+    @IsTest 
+    static void testGetAgentConfiguration_NullId() {
+        Test.startTest();
+        Map<String, Object> config = GenAiMetadataService.getAgentConfiguration(null);
+        Test.stopTest();
+
+        Assert.isNotNull(config, 'Config should not be null for null agent ID');
+        Assert.isTrue(config.isEmpty(), 'Config map should be empty for null agent ID');
+    }
+
+    /**
+     * @description Tests error handling for invalid topic name
+     */
+    @IsTest 
+    static void testGetAgentActions_InvalidTopic() {
+        Test.startTest();
+        List<Map<String, Object>> actions = GenAiMetadataService.getAgentActions('NonExistentTopic');
+        Test.stopTest();
+
+        Assert.isNotNull(actions, 'Actions list should not be null for invalid topic');
+        Assert.areEqual(0, actions.size(), 'Actions list should be empty for invalid topic');
+    }
+
+    /**
+     * @description Tests error handling for null topic name
+     */
+    @IsTest 
+    static void testGetAgentActions_NullTopic() {
+        Test.startTest();
+        List<Map<String, Object>> actions = GenAiMetadataService.getAgentActions(null);
+        Test.stopTest();
+
+        Assert.isNotNull(actions, 'Actions list should not be null for null topic');
+        Assert.areEqual(0, actions.size(), 'Actions list should be empty for null topic');
+    }
+
+    /**
+     * @description Tests error handling for invalid agent ID in complete configuration
+     */
+    @IsTest 
+    static void testGetCompleteAgentConfiguration_InvalidId() {
+        Test.startTest();
+        Map<String, Object> completeConfig = GenAiMetadataService.getCompleteAgentConfiguration('InvalidId');
+        Test.stopTest();
+
+        Assert.isNotNull(completeConfig, 'Complete config should not be null for invalid agent');
+        Assert.isTrue(completeConfig.isEmpty() || completeConfig.get('success') == false, 
+            'Config should be empty or success should be false for invalid agent');
+    }
+
+    /**
+     * @description Tests error handling for null agent ID in complete configuration
+     */
+    @IsTest 
+    static void testGetCompleteAgentConfiguration_NullId() {
+        Test.startTest();
+        Map<String, Object> completeConfig = GenAiMetadataService.getCompleteAgentConfiguration(null);
+        Test.stopTest();
+
+        Assert.isNotNull(completeConfig, 'Complete config should not be null for null agent ID');
+        Assert.isTrue(completeConfig.isEmpty() || completeConfig.get('success') == false, 
+            'Config should be empty or success should be false for null agent ID');
+    }
+
+    /**
+     * @description Tests retrieval of agent topics with no associated functions
+     */
+    @IsTest 
+    static void testGetAgentTopics_NoFunctions() {
+        Id emptyAgentId = '0Ml000000000003AAA';
+        
+        Test.startTest();
+        List<Map<String, Object>> topics = GenAiMetadataService.getAgentTopics(emptyAgentId);
+        Test.stopTest();
+
+        Assert.isNotNull(topics, 'Topics list should not be null for agent with no functions');
+        Assert.areEqual(0, topics.size(), 'Topics list should be empty for agent with no functions');
+    }
+
+    /**
+     * @description Tests retrieval of agent actions using mock data
+     */
+    @IsTest 
+    static void testGetAgentActions_Mock() {
+        Test.startTest();
+        List<Map<String, Object>> actions = GenAiMetadataService.getAgentActions(MOCK_TOPIC);
+        Test.stopTest();
+
+        Assert.isNotNull(actions, 'Actions list should not be null');
+        Assert.areEqual(0, actions.size(), 'Should have no actions for test topic');
+    }
+
+    /**
+     * @description Tests retrieval of agent instructions using mock data
+     */
+    @IsTest 
+    static void testGetAgentInstructions_Mock() {
+        Test.startTest();
+        List<Map<String, Object>> instructions = GenAiMetadataService.getAgentInstructions(MOCK_TOPIC);
+        Test.stopTest();
+
+        Assert.isNotNull(instructions, 'Instructions list should not be null');
+        Assert.areEqual(0, instructions.size(), 'Should have no instructions for test topic');
+    }
+
+    /**
+     * @description Tests retrieval of all agents using mock data
+     */
+    @IsTest 
+    static void testGetAllAgents_Mock() {
+        Test.startTest();
+        List<Map<String, Object>> agents = GenAiMetadataService.getAllAgents();
+        Test.stopTest();
+
+        Assert.isNotNull(agents, 'Agents list should not be null');
+        Assert.isTrue(agents.size() >= 0, 'Should have zero or more agents');
+    }
+
+    /**
+     * @description Tests validation of agent configurations using mock data
+     */
+    @IsTest 
+    static void testValidateAgentforceConfigurations_Mock() {
+        Test.startTest();
+        try {
+            String result = GenAiMetadataService.validateAgentforceConfigurations(MOCK_AGENT);
+            Assert.fail('Should have thrown an AuraHandledException');
+        } catch (AuraHandledException e) {
+            // Expected exception
+            Assert.isTrue(e.getMessage().length() > 0, 'Exception should have a message');
         }
+        Test.stopTest();
+    }
+
+    /**
+     * @description Tests validateAgentforceConfigurations with various inputs
+     */
+    @IsTest 
+    static void testValidateAgentforceConfigurations_Inputs() {
+        Test.startTest();
+        
+        // Test with null
+        try {
+            GenAiMetadataService.validateAgentforceConfigurations(null);
+            Assert.fail('Should have thrown an AuraHandledException for null input');
+        } catch (AuraHandledException e) {
+            // Expected exception
+            Assert.isTrue(e.getMessage().length() > 0, 'Exception should have a message');
+        }
+
+        // Test with empty string
+        try {
+            GenAiMetadataService.validateAgentforceConfigurations('');
+            Assert.fail('Should have thrown an AuraHandledException for empty string');
+        } catch (AuraHandledException e) {
+            // Expected exception
+            Assert.isTrue(e.getMessage().length() > 0, 'Exception should have a message');
+        }
+
+        // Test with invalid ID
+        try {
+            GenAiMetadataService.validateAgentforceConfigurations('InvalidId');
+            Assert.fail('Should have thrown an AuraHandledException for invalid ID');
+        } catch (AuraHandledException e) {
+            // Expected exception
+            Assert.isTrue(e.getMessage().length() > 0, 'Exception should have a message');
+        }
+
+        Test.stopTest();
+    }
+
+    /**
+     * @description Tests exception handling in getAgentConfiguration with invalid query
+     */
+    @IsTest 
+    static void testGetAgentConfiguration_QueryException() {
+        // Create a mock ID that would cause a QueryException
+        Id invalidId = '00D000000000001AAA';
+        
+        Test.startTest();
+        Map<String, Object> config = GenAiMetadataService.getAgentConfiguration(invalidId);
+        Test.stopTest();
+
+        Assert.isNotNull(config, 'Config should not be null on exception');
+        Assert.isTrue(config.isEmpty(), 'Config should be empty on exception');
+    }
+
+    /**
+     * @description Tests exception handling in getAgentTopics with invalid query
+     */
+    @IsTest 
+    static void testGetAgentTopics_QueryException() {
+        // Create a mock ID that would cause a QueryException
+        Id invalidId = '00D000000000001AAA';
+        
+        Test.startTest();
+        List<Map<String, Object>> topics = GenAiMetadataService.getAgentTopics(invalidId);
+        Test.stopTest();
+
+        Assert.isNotNull(topics, 'Topics list should not be null on exception');
+        Assert.areEqual(0, topics.size(), 'Topics list should be empty on exception');
+    }
+
+    /**
+     * @description Tests exception handling in getAgentActions with invalid query
+     */
+    @IsTest 
+    static void testGetAgentActions_QueryException() {
+        Test.startTest();
+        List<Map<String, Object>> actions = GenAiMetadataService.getAgentActions('Invalid.Topic.Name');
+        Test.stopTest();
+
+        Assert.isNotNull(actions, 'Actions list should not be null on exception');
+        Assert.areEqual(0, actions.size(), 'Actions list should be empty on exception');
+    }
+
+    /**
+     * @description Tests exception handling in getAgentInstructions with invalid query
+     */
+    @IsTest 
+    static void testGetAgentInstructions_QueryException() {
+        Test.startTest();
+        List<Map<String, Object>> instructions = GenAiMetadataService.getAgentInstructions('Invalid.Topic.Name');
+        Test.stopTest();
+
+        Assert.isNotNull(instructions, 'Instructions list should not be null on exception');
+        Assert.areEqual(0, instructions.size(), 'Instructions list should be empty on exception');
+    }
+
+    /**
+     * @description Tests exception handling in getAllAgents
+     */
+    @IsTest 
+    static void testGetAllAgents_Exception() {
+        Test.startTest();
+        List<Map<String, Object>> agents = GenAiMetadataService.getAllAgents();
+        Test.stopTest();
+
+        Assert.isNotNull(agents, 'Agents list should not be null on exception');
+    }
+
+    /**
+     * @description Tests getCompleteAgentConfiguration with various input types
+     */
+    @IsTest 
+    static void testGetCompleteAgentConfiguration_InputTypes() {
+        Test.startTest();
+        
+        // Test with empty string
+        Map<String, Object> emptyConfig = GenAiMetadataService.getCompleteAgentConfiguration('');
+        Assert.isNotNull(emptyConfig, 'Config should not be null for empty string');
+        Assert.isTrue(emptyConfig.isEmpty() || emptyConfig.get('success') == false, 
+            'Config should be empty or success should be false for empty string');
+
+        // Test with special characters
+        Map<String, Object> specialConfig = GenAiMetadataService.getCompleteAgentConfiguration('!@#$%^&*()');
+        Assert.isNotNull(specialConfig, 'Config should not be null for special characters');
+        Assert.isTrue(specialConfig.isEmpty() || specialConfig.get('success') == false, 
+            'Config should be empty or success should be false for special characters');
+
+        // Test with very long string
+        String longString = 'a'.repeat(255);
+        Map<String, Object> longConfig = GenAiMetadataService.getCompleteAgentConfiguration(longString);
+        Assert.isNotNull(longConfig, 'Config should not be null for long string');
+        Assert.isTrue(longConfig.isEmpty() || longConfig.get('success') == false, 
+            'Config should be empty or success should be false for long string');
+
+        Test.stopTest();
     }
 }

@@ -1,6 +1,5 @@
 import { LightningElement, track, wire } from 'lwc';
 import validateAgentforceConfigurations from '@salesforce/apex/GenAiMetadataService.validateAgentforceConfigurations';
-import recommendAgentforceChanges from '@salesforce/apex/GenAiMetadataService.recommendAgentforceChanges';
 import { subscribe, MessageContext, unsubscribe } from 'lightning/messageService';
 import AGENT_SELECTED_MC from '@salesforce/messageChannel/AgentSelected__c';
 
@@ -99,63 +98,6 @@ export default class AgentConfigurationReccomendations extends LightningElement 
             default:
                 return 'slds-text-color_default';
         }
-    }
-
-    handleOptimiseInstructions() {
-        this.isOptimizeModalOpen = true;
-        this.optimizeInstructions = '';
-        this.isOptimizeButtonDisabled = true;
-    }
-
-    handleCloseOptimizeModal() {
-        this.isOptimizeModalOpen = false;
-        this.optimizeInstructions = '';
-        this.isOptimizeButtonDisabled = true;
-    }
-
-    handleOptimizeInstructionsChange(event) {
-        this.optimizeInstructions = event.target.value;
-        this.isOptimizeButtonDisabled = !this.optimizeInstructions.trim();
-    }
-
-    async handleSubmitOptimizeInstructions() {
-        try {
-            this.isLoading = true;
-            const result = await recommendAgentforceChanges({ 
-                agentId: this.selectedAgentId, 
-                userIntent: this.optimizeInstructions 
-            });
-            
-            this.validationResults = [{
-                id: 0,
-                name: 'Optimization Recommendations',
-                description: result,
-                status: 'Success',
-                statusClass: 'slds-text-color_success'
-            }];
-            
-            this.handleCloseOptimizeModal();
-        } catch (error) {
-            console.error('Error submitting optimization instructions:', error);
-            this.validationResults = [{
-                id: 0,
-                name: 'Error',
-                description: 'Failed to submit optimization instructions. Please try again.',
-                status: 'Error',
-                statusClass: 'slds-text-color_error'
-            }];
-        } finally {
-            this.isLoading = false;
-        }
-    }
-
-    handleSearchClick() {
-        this.isSearchModalOpen = true;
-    }
-
-    handleCloseModal() {
-        this.isSearchModalOpen = false;
-        this.searchTerm = '';
     }
 
     handleSearchInputChange(event) {

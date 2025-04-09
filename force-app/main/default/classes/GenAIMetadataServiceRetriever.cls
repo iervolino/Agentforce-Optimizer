@@ -17,7 +17,7 @@ public with sharing class GenAIMetadataServiceRetriever {
         Request input = requests[0];
         List<Response> responses = new List<Response>();
         Response output = new Response();
-        responses.add(output);
+        responses.add(output); 
         
         try {
             // Generate the prompt template configuration
@@ -37,9 +37,9 @@ public with sharing class GenAIMetadataServiceRetriever {
      * @param agentId The ID of the agent
      * @return String The prompt template configuration as a formatted string
      */
-    private static String generatePromptTemplate(Id agentId) {
+    private static String generatePromptTemplate(String agentId) {
         System.debug('Starting generatePromptTemplate() method for agent ID: ' + agentId);
-        String promptTemplate = '';
+        String promptTemplate = ''; 
         
         try {
             // Get base agent configuration

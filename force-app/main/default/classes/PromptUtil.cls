@@ -34,13 +34,14 @@ public with sharing class PromptUtil {
             System.debug('Stack trace: ' + e.getStackTraceString());
             throw new AuraHandledException('Error executing prompt: ' + e.getMessage());
         }
-    }
+    } 
     
     /**
      * @description Creates and configures a prompt input object with standard settings
      * @param inputParams The input parameters for the prompt
      * @return Configured EinsteinPromptTemplateGenerationsInput object
      */
+    @TestVisible
     private static ConnectApi.EinsteinPromptTemplateGenerationsInput createPromptInput(
         Map<String, ConnectApi.WrappedValue> inputParams
     ) {
@@ -55,4 +56,3 @@ public with sharing class PromptUtil {
 
 
 }
-
