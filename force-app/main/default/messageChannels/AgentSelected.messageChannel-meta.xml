@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <LightningMessageChannel xmlns="http://soap.sforce.com/2006/04/metadata">
-    <masterLabel>AgentSelected</masterLabel>
-    <isExposed>true</isExposed>
     <description>Message Channel for Agent Selection Events</description>
+    <isExposed>true</isExposed>
     <lightningMessageFields>
-       <fieldName>agentId</fieldName>
-       <description>Agent Id</description>
+        <description>Agent Id</description>
+        <fieldName>agentId</fieldName>
     </lightningMessageFields>
     <lightningMessageFields>
-        <fieldName>agentName</fieldName>
         <description>Agent Name</description>
+        <fieldName>agentName</fieldName>
     </lightningMessageFields>
-</LightningMessageChannel> 
+    <masterLabel>AgentSelected</masterLabel>
+</LightningMessageChannel>
