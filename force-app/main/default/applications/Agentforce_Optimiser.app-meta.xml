@@ -4,7 +4,7 @@
         <headerColor>#0070D2</headerColor>
         <logo>astroagentforcefly</logo>
         <logoVersion>1</logoVersion>
-        <shouldOverrideOrgTheme>false</shouldOverrideOrgTheme>
+        <shouldOverrideOrgTheme>true</shouldOverrideOrgTheme>
     </brand>
     <description>Agentforce Optimizer is a powerful tool designed to fine-tune and optimize Agentforce configurations, ensuring peak performance for autonomous agents in Salesforce. With intelligent recommendations, automated tuning, and real-time insights, Agentforce Opt</description>
     <formFactors>Small</formFactors>

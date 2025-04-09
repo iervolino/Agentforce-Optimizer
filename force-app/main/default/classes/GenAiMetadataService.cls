@@ -143,7 +143,7 @@ public class GenAiMetadataService {
 
             // First query: Get all Plugin DeveloperNames from GenAiPlannerFunctionDef
             List<GenAiPlannerFunctionDef> plannerFunctions = [
-                SELECT Plugin
+                SELECT Id, Plugin
                 FROM GenAiPlannerFunctionDef 
                 WHERE PlannerId = :agentId
                 AND IsDeleted = false
@@ -152,7 +152,7 @@ public class GenAiMetadataService {
             // Build set of Plugin DeveloperNames
             Set<String> pluginNames = new Set<String>();
             for (GenAiPlannerFunctionDef pf : plannerFunctions) {
-                pluginNames.add(pf.Plugin);
+                pluginNames.add(pf.Id);
             }
             
             if (pluginNames.isEmpty()) {
@@ -179,7 +179,7 @@ public class GenAiMetadataService {
                     CreatedDate,
                     LastModifiedDate
                 FROM GenAiPluginDefinition
-                WHERE Id IN :pluginNames
+                WHERE ParentId IN :pluginNames
                 AND IsDeleted = false
             ];
             
