@@ -1,0 +1,113 @@
+{
+  "status": 0,
+  "result": [
+    {
+      "createdById": "005gL000000hNseQAE",
+      "createdByName": "Automated Process",
+      "createdDate": "2025-03-20T07:15:08.000Z",
+      "fileName": "permissionsets/sfdcInternalInt__sfdc_a360_sfcrm_data_extract.permissionset",
+      "fullName": "sfdcInternalInt__sfdc_a360_sfcrm_data_extract",
+      "id": "0PSgL000000gNZlWAM",
+      "lastModifiedById": "005gL000000hNseQAE",
+      "lastModifiedByName": "Automated Process",
+      "lastModifiedDate": "2025-03-20T07:15:09.000Z",
+      "manageableState": "unmanaged",
+      "namespacePrefix": "sfdcInternalInt",
+      "type": "PermissionSet"
+    },
+    {
+      "createdById": "005gL000000hNseQAE",
+      "createdByName": "Automated Process",
+      "createdDate": "2025-03-20T07:14:28.000Z",
+      "fileName": "permissionsets/sfdcInternalInt__sfdc_a360.permissionset",
+      "fullName": "sfdcInternalInt__sfdc_a360",
+      "id": "0PSgL000000gNLCWA2",
+      "lastModifiedById": "005gL000000hNseQAE",
+      "lastModifiedByName": "Automated Process",
+      "lastModifiedDate": "2025-03-20T07:14:29.000Z",
+      "manageableState": "unmanaged",
+      "namespacePrefix": "sfdcInternalInt",
+      "type": "PermissionSet"
+    },
+    {
+      "createdById": "005gL000000lQwkQAE",
+      "createdByName": "Francesco Iervolino",
+      "createdDate": "2025-03-21T09:28:39.000Z",
+      "fileName": "permissionsets/Customer_Service_Agent_Permissions.permissionset",
+      "fullName": "Customer_Service_Agent_Permissions",
+      "id": "0PSgL000000kBQIWA2",
+      "lastModifiedById": "005gL000000lQwkQAE",
+      "lastModifiedByName": "Francesco Iervolino",
+      "lastModifiedDate": "2025-03-21T09:28:39.000Z",
+      "manageableState": "unmanaged",
+      "type": "PermissionSet"
+    },
+    {
+      "createdById": "005gL000000hNseQAE",
+      "createdByName": "Automated Process",
+      "createdDate": "2025-03-20T06:59:03.000Z",
+      "fileName": "permissionsets/sfdcInternalInt__sfdc_scrt2.permissionset",
+      "fullName": "sfdcInternalInt__sfdc_scrt2",
+      "id": "0PSgL000000gF98WAE",
+      "lastModifiedById": "005gL000000hNseQAE",
+      "lastModifiedByName": "Automated Process",
+      "lastModifiedDate": "2025-03-20T07:05:03.000Z",
+      "manageableState": "unmanaged",
+      "namespacePrefix": "sfdcInternalInt",
+      "type": "PermissionSet"
+    },
+    {
+      "createdById": "005gL000000hNseQAE",
+      "createdByName": "Automated Process",
+      "createdDate": "2025-03-20T07:46:20.000Z",
+      "fileName": "permissionsets/sfdc_aiplanner_service_permset.permissionset",
+      "fullName": "sfdc_aiplanner_service_permset",
+      "id": "0PSgL000000gT0nWAE",
+      "lastModifiedById": "005gL000000hNseQAE",
+      "lastModifiedByName": "Automated Process",
+      "lastModifiedDate": "2025-03-20T07:46:20.000Z",
+      "manageableState": "unmanaged",
+      "type": "PermissionSet"
+    },
+    {
+      "createdById": "005gL000000hNseQAE",
+      "createdByName": "Automated Process",
+      "createdDate": "2025-03-20T07:46:19.000Z",
+      "fileName": "permissionsets/sfdcInternalInt__sfdc_chatbot.permissionset",
+      "fullName": "sfdcInternalInt__sfdc_chatbot",
+      "id": "0PSgL000000gSzCWAU",
+      "lastModifiedById": "005gL000000hNseQAE",
+      "lastModifiedByName": "Automated Process",
+      "lastModifiedDate": "2025-03-20T07:47:13.000Z",
+      "manageableState": "unmanaged",
+      "namespacePrefix": "sfdcInternalInt",
+      "type": "PermissionSet"
+    },
+    {
+      "createdById": "005gL000000hXITQA2",
+      "createdByName": "OrgFarm EPIC",
+      "createdDate": "2025-03-20T06:59:03.000Z",
+      "fileName": "permissionsets/Experience_Profile_Manager.permissionset",
+      "fullName": "Experience_Profile_Manager",
+      "id": "0PSgL000000gF9tWAE",
+      "lastModifiedById": "005gL000000hXITQA2",
+      "lastModifiedByName": "OrgFarm EPIC",
+      "lastModifiedDate": "2025-03-20T06:59:03.000Z",
+      "manageableState": "unmanaged",
+      "type": "PermissionSet"
+    },
+    {
+      "createdById": "005gL000000lQwkQAE",
+      "createdByName": "Francesco Iervolino",
+      "createdDate": "2025-04-09T10:29:35.000Z",
+      "fileName": "permissionsets/Agentforce_Optimizer.permissionset",
+      "fullName": "Agentforce_Optimizer",
+      "id": "0PSgL000001QyZWWA0",
+      "lastModifiedById": "005gL000000lQwkQAE",
+      "lastModifiedByName": "Francesco Iervolino",
+      "lastModifiedDate": "2025-04-09T10:34:16.000Z",
+      "manageableState": "unmanaged",
+      "type": "PermissionSet"
+    }
+  ]
+}
