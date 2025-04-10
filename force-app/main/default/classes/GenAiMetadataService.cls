@@ -9,10 +9,12 @@
 public class GenAiMetadataService {
 
     // Test data constants
-    private static final String TEST_AGENT = 'TestAgent';
-    private static final String TEST_TOPIC = 'TestTopic';
-    private static final String TEST_INSTRUCTION = 'TestInstruction';
-    private static final String TEST_FUNCTION = 'testFunction';
+    @TestVisible private static final String TEST_AGENT = 'TestAgent';
+    @TestVisible private static final String TEST_TOPIC = 'TestTopic';
+    @TestVisible private static final String TEST_INSTRUCTION = 'TestInstruction';
+    @TestVisible private static final String TEST_FUNCTION = 'testFunction';
+    @TestVisible private static final String MOCK_AGENT_ID = 'test_agent_001';
+    @TestVisible private static final String MOCK_TOPIC_ID = 'test_topic_001';
 
     /**
      * @description Retrieves configuration metadata for a specific agent 
@@ -230,6 +232,7 @@ public class GenAiMetadataService {
         List<Map<String, Object>> result = new List<Map<String, Object>>();
         
         try {
+
             // Query the GenAiPluginFunctionDef records associated with the topic
             List<GenAiPluginFunctionDef> functions = [
                 SELECT 
@@ -289,6 +292,7 @@ public class GenAiMetadataService {
         List<Map<String, Object>> result = new List<Map<String, Object>>();
         
         try {
+
             // Query the GenAiPluginInstructionDef records associated with the topic
             List<GenAiPluginInstructionDef> instructions = [
                 SELECT 
@@ -451,6 +455,7 @@ public class GenAiMetadataService {
         List<Map<String, Object>> result = new List<Map<String, Object>>();
         
         try {
+
             List<GenAiPlannerDefinition> planners = [
                 SELECT 
                     Id, 

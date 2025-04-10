@@ -16,6 +16,8 @@ private class GenAiMetadataServiceTest {
     
     private static final String MOCK_AGENT = 'TestAgent';
     private static final String MOCK_TOPIC = 'TestTopic';
+    private static final String MOCK_FUNCTION = 'testFunction';
+    private static final String MOCK_INSTRUCTION = 'TestInstruction';
     
     private static final Id MOCK_AGENT_ID = '0Ml000000000001AAA';
     private static final Id MOCK_TOPIC_ID = '0Ml000000000002AAA';
@@ -41,6 +43,10 @@ private class GenAiMetadataServiceTest {
         Assert.isFalse(config.isEmpty(), 'Config map should not be empty for mock agent');
         Assert.areEqual(MOCK_AGENT, config.get('name'), 'Agent name should match mock');
         Assert.areEqual('Test Agent', config.get('label'), 'Agent label should match mock');
+        Assert.areEqual('Test Agent Description', config.get('description'), 'Description should match mock');
+        Assert.areEqual('Test Capabilities', config.get('capabilities'), 'Capabilities should match mock');
+        Assert.areEqual('en_US', config.get('language'), 'Language should match mock');
+        Assert.areEqual('Standard', config.get('plannerType'), 'PlannerType should match mock');
     }
     
     /**
@@ -57,6 +63,37 @@ private class GenAiMetadataServiceTest {
         Map<String, Object> topic = topics[0];
         Assert.areEqual(MOCK_TOPIC, topic.get('name'), 'Topic name should match mock');
         Assert.areEqual('Test Topic', topic.get('label'), 'Topic label should match mock');
+        Assert.areEqual('Test Topic Description', topic.get('description'), 'Description should match mock');
+        Assert.areEqual(true, topic.get('isLocal'), 'IsLocal should be true');
+        Assert.areEqual('en_US', topic.get('language'), 'Language should match mock');
+    }
+
+    /**
+     * @description Tests the retrieval of agent actions using mock data.
+     */
+    @IsTest
+    static void testGetAgentActions_Mock() {
+        Test.startTest();
+        List<Map<String, Object>> actions = GenAiMetadataService.getAgentActions(MOCK_TOPIC);
+        Test.stopTest();
+        
+        Assert.isNotNull(actions, 'Actions list should not be null');
+        // Note: Currently returns empty list as mock data path is not implemented
+        Assert.areEqual(0, actions.size(), 'Should have no actions for mock topic');
+    }
+
+    /**
+     * @description Tests the retrieval of agent instructions using mock data.
+     */
+    @IsTest
+    static void testGetAgentInstructions_Mock() {
+        Test.startTest();
+        List<Map<String, Object>> instructions = GenAiMetadataService.getAgentInstructions(MOCK_TOPIC);
+        Test.stopTest();
+        
+        Assert.isNotNull(instructions, 'Instructions list should not be null');
+        // Note: Currently returns empty list as mock data path is not implemented
+        Assert.areEqual(0, instructions.size(), 'Should have no instructions for mock topic');
     }
 
     /**
@@ -79,8 +116,25 @@ private class GenAiMetadataServiceTest {
         List<Map<String, Object>> topics = (List<Map<String, Object>>)completeConfig.get('topics');
         Assert.isNotNull(topics, 'Topics section should not be null');
         Assert.areEqual(1, topics.size(), 'Should have one mock topic');
+        
         Map<String, Object> topic = topics[0];
         Assert.areEqual(MOCK_TOPIC, topic.get('name'), 'Topic name should match mock');
+        Assert.isNotNull(topic.get('actions'), 'Actions list should not be null');
+        Assert.isNotNull(topic.get('instructions'), 'Instructions list should not be null');
+    }
+
+    /**
+     * @description Tests retrieval of all agents using mock data.
+     */
+    @IsTest
+    static void testGetAllAgents_Mock() {
+        Test.startTest();
+        List<Map<String, Object>> agents = GenAiMetadataService.getAllAgents();
+        Test.stopTest();
+        
+        Assert.isNotNull(agents, 'Agents list should not be null');
+        // Note: getAllAgents doesn't have a mock data path, so it will return empty list
+        //Assert.areEqual(0, agents.size(), 'Should have no agents in test context');
     }
 
     /**
@@ -320,42 +374,81 @@ private class GenAiMetadataServiceTest {
     }
 
     /**
-     * @description Tests retrieval of agent actions using mock data
+     * @description Tests complete workflow with mock data
      */
-    @IsTest 
-    static void testGetAgentActions_Mock() {
+    @IsTest
+    static void testCompleteWorkflow_Mock() {
         Test.startTest();
-        List<Map<String, Object>> actions = GenAiMetadataService.getAgentActions(MOCK_TOPIC);
-        Test.stopTest();
-
+        
+        // Get agent configuration
+        Map<String, Object> config = GenAiMetadataService.getAgentConfiguration(MOCK_AGENT);
+        Assert.isNotNull(config, 'Agent configuration should not be null');
+        Assert.areEqual(MOCK_AGENT, config.get('name'), 'Agent name should match mock');
+        
+        // Get topics for the agent
+        List<Map<String, Object>> topics = GenAiMetadataService.getAgentTopics(MOCK_AGENT);
+        Assert.isNotNull(topics, 'Topics list should not be null');
+        Assert.areEqual(1, topics.size(), 'Should have one mock topic');
+        
+        // Get actions for the topic
+        String topicName = (String)topics[0].get('name');
+        List<Map<String, Object>> actions = GenAiMetadataService.getAgentActions(topicName);
         Assert.isNotNull(actions, 'Actions list should not be null');
-        Assert.areEqual(0, actions.size(), 'Should have no actions for test topic');
-    }
-
-    /**
-     * @description Tests retrieval of agent instructions using mock data
-     */
-    @IsTest 
-    static void testGetAgentInstructions_Mock() {
-        Test.startTest();
-        List<Map<String, Object>> instructions = GenAiMetadataService.getAgentInstructions(MOCK_TOPIC);
-        Test.stopTest();
-
+        
+        // Get instructions for the topic
+        List<Map<String, Object>> instructions = GenAiMetadataService.getAgentInstructions(topicName);
         Assert.isNotNull(instructions, 'Instructions list should not be null');
-        Assert.areEqual(0, instructions.size(), 'Should have no instructions for test topic');
+        
+        // Get complete configuration
+        Map<String, Object> completeConfig = GenAiMetadataService.getCompleteAgentConfiguration(MOCK_AGENT);
+        Assert.isNotNull(completeConfig, 'Complete configuration should not be null');
+        Assert.isTrue((Boolean)completeConfig.get('success'), 'Success should be true');
+        
+        Test.stopTest();
     }
 
     /**
-     * @description Tests retrieval of all agents using mock data
+     * @description Tests error handling in complete workflow
      */
-    @IsTest 
-    static void testGetAllAgents_Mock() {
+    @IsTest
+    static void testCompleteWorkflow_ErrorHandling() {
         Test.startTest();
-        List<Map<String, Object>> agents = GenAiMetadataService.getAllAgents();
+        
+        // Test with null values
+        Map<String, Object> nullConfig = GenAiMetadataService.getAgentConfiguration(null);
+        Assert.isTrue(nullConfig.isEmpty(), 'Config should be empty for null agent ID');
+        
+        List<Map<String, Object>> nullTopics = GenAiMetadataService.getAgentTopics(null);
+        Assert.areEqual(0, nullTopics.size(), 'Topics list should be empty for null agent ID');
+        
+        List<Map<String, Object>> nullActions = GenAiMetadataService.getAgentActions(null);
+        Assert.areEqual(0, nullActions.size(), 'Actions list should be empty for null topic');
+        
+        List<Map<String, Object>> nullInstructions = GenAiMetadataService.getAgentInstructions(null);
+        Assert.areEqual(0, nullInstructions.size(), 'Instructions list should be empty for null topic');
+        
+        Map<String, Object> nullCompleteConfig = GenAiMetadataService.getCompleteAgentConfiguration(null);
+        Assert.isTrue(nullCompleteConfig.isEmpty() || nullCompleteConfig.get('success') == false, 
+            'Complete config should be empty or success should be false for null agent ID');
+        
+        // Test with invalid values
+        Map<String, Object> invalidConfig = GenAiMetadataService.getAgentConfiguration('InvalidId');
+        Assert.isTrue(invalidConfig.isEmpty(), 'Config should be empty for invalid agent ID');
+        
+        List<Map<String, Object>> invalidTopics = GenAiMetadataService.getAgentTopics('InvalidId');
+        Assert.areEqual(0, invalidTopics.size(), 'Topics list should be empty for invalid agent ID');
+        
+        List<Map<String, Object>> invalidActions = GenAiMetadataService.getAgentActions('InvalidTopic');
+        Assert.areEqual(0, invalidActions.size(), 'Actions list should be empty for invalid topic');
+        
+        List<Map<String, Object>> invalidInstructions = GenAiMetadataService.getAgentInstructions('InvalidTopic');
+        Assert.areEqual(0, invalidInstructions.size(), 'Instructions list should be empty for invalid topic');
+        
+        Map<String, Object> invalidCompleteConfig = GenAiMetadataService.getCompleteAgentConfiguration('InvalidId');
+        Assert.isTrue(invalidCompleteConfig.isEmpty() || invalidCompleteConfig.get('success') == false, 
+            'Complete config should be empty or success should be false for invalid agent ID');
+        
         Test.stopTest();
-
-        Assert.isNotNull(agents, 'Agents list should not be null');
-        Assert.isTrue(agents.size() >= 0, 'Should have zero or more agents');
     }
 
     /**

@@ -1,14 +1,21 @@
 # Agentforce Optimizer
 
-A Salesforce DX project designed to optimize and automate Agentforce configurations for improved virtual agent performance. This tool validates configurations against industry best practices and provides recommendations for optimal setup.
+Agentforce Optimizer is a Salesforce DX project that helps validate and enhance Agentforce configurations to improve agent performance. It checks your setup against best practices across topics, instructions, and actions, and offers tailored recommendations for optimization.
 
-## Overview
+# 🔍 What It Does
 
-This project provides tools and automation capabilities to enhance the performance of virtual agents in the Salesforce ecosystem. It helps streamline the configuration process and optimize settings for better agent efficiency by:
+This tool automates the validation and optimization process for Agentforce configurations (Topics, Instructions and Actions).
 
-- Validating configurations against established best practices
-- Identifying potential issues and optimization opportunities
-- Providing actionable recommendations for improvement
+Key capabilities include:
+
+- Verifying configurations against best practices
+- Highlighting potential issues and opportunities for optimization
+
+# 🛠️ How It Works
+The project leverages a configurable Prompt Template (named Validate Agentforce Configurations) available through Prompt Builder. This template drives the validation logic and can be extended to support evolving use cases or business requirements.
+
+# ⚠️ Note
+The current version of the Optimizer leverages the custom GenAIMetadataServiceRetriever to retrieve agent configurations. At this stage, it is limited to fetching custom topics that include associated instructions and actions, with the action data restricted to the action name only.
 
 ## Prerequisites
 
@@ -16,19 +23,13 @@ This project provides tools and automation capabilities to enhance the performan
 - Salesforce DX project structure
 - Access to a Salesforce org with Agentforce capabilities
 
-## Project Structure
-
-```
-.
-├── force-app/          # Main source code directory
-├── config/            # Configuration files
-├── .sfdx/            # Salesforce DX configuration
-└── .forceignore      # Files to ignore during deployment
-```
-
 ## Getting Started
 
 1. Clone this repository
+   ```bash
+   git clone https://github.com/iervolino/Agentforce-Optimizer.git
+   cd Agentforce-Optimizer
+   ```
 2. Authenticate with your Salesforce org:
    ```bash
    sfdx auth:web:login
@@ -66,7 +67,7 @@ The `sfdx-project.json` file contains the project configuration, including:
 
 MIT License
 
-Copyright (c) 2025 Francesco
+Copyright (c) 2025 
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal

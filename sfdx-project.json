@@ -6,7 +6,15 @@
       "path": "force-app",
       "default": true,
       "package": "Agentforce Optimizer",
-      "versionDescription": ""
+      "versionDescription": "Initial version"
+    },
+    {
+      "versionName": "ver 0.1",
+      "versionNumber": "0.1.0.NEXT",
+      "path": "force-app",
+      "default": false,
+      "package": "AgentforceOptimizer",
+      "versionDescription": "Agentforce Optimizer App"
     }
   ],
   "name": "Agentforce Optimizer",
@@ -14,6 +22,6 @@
   "sfdcLoginUrl": "https://login.salesforce.com",
   "sourceApiVersion": "63.0",
   "packageAliases": {
-    "Agentforce Optimizer": "0HoKA0000008OIZ0A2"
+    "AgentforceOptimizer": "0HoKA0000008OIe0AM"
   }
 }
