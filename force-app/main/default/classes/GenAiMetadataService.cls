@@ -8,14 +8,6 @@
  */
 public class GenAiMetadataService {
 
-    // Test data constants
-    @TestVisible private static final String TEST_AGENT = 'TestAgent';
-    @TestVisible private static final String TEST_TOPIC = 'TestTopic';
-    @TestVisible private static final String TEST_INSTRUCTION = 'TestInstruction';
-    @TestVisible private static final String TEST_FUNCTION = 'testFunction';
-    @TestVisible private static final String MOCK_AGENT_ID = 'test_agent_001';
-    @TestVisible private static final String MOCK_TOPIC_ID = 'test_topic_001';
-
     /**
      * @description Retrieves configuration metadata for a specific agent 
      * This method retrieves the configuration metadata associated with an agent,
@@ -33,26 +25,6 @@ public class GenAiMetadataService {
         Map<String, Object> result = new Map<String, Object>();
         
         try {
-            if (Test.isRunningTest()) {
-                // Return test data for TestAgent
-                if (agentId == TEST_AGENT) {
-                    result.put('id', 'TEST_ID');
-                    result.put('name', TEST_AGENT);
-                    result.put('label', 'Test Agent');
-                    result.put('description', 'Test Agent Description');
-                    result.put('capabilities', 'Test Capabilities');
-                    result.put('language', 'en_US');
-                    result.put('plannerType', 'Standard');
-                    result.put('namespacePrefix', null);
-                    result.put('createdBy', UserInfo.getUserId());
-                    result.put('lastModifiedBy', UserInfo.getUserId());
-                    result.put('createdDate', Datetime.now());
-                    result.put('lastModifiedDate', Datetime.now());
-                    return result;
-                }
-                return result;
-            }
-
             // Query the GenAiPlannerDefinition record for the agent
             List<GenAiPlannerDefinition> planners = [
                 SELECT 
@@ -117,32 +89,6 @@ public class GenAiMetadataService {
         List<Map<String, Object>> result = new List<Map<String, Object>>();
         
         try {
-            if (Test.isRunningTest()) {
-                // Return test data for TestAgent
-                if (agentId == TEST_AGENT) {
-                    Map<String, Object> topic = new Map<String, Object>{
-                        'id' => 'TEST_PLUGIN_ID',
-                        'name' => TEST_TOPIC,
-                        'label' => 'Test Topic',
-                        'description' => 'Test Topic Description',
-                        'isLocal' => true,
-                        'language' => 'en_US',
-                        'pluginType' => 'Standard',
-                        'scope' => 'Global',
-                        'canEscalate' => true,
-                        'parentId' => null,
-                        'namespacePrefix' => null,
-                        'createdBy' => UserInfo.getUserId(),
-                        'lastModifiedBy' => UserInfo.getUserId(),
-                        'createdDate' => Datetime.now(),
-                        'lastModifiedDate' => Datetime.now()
-                    };
-                    result.add(topic);
-                    return result;
-                }
-                return result;
-            }
-
             // First query: Get all Plugin DeveloperNames from GenAiPlannerFunctionDef
             List<GenAiPlannerFunctionDef> plannerFunctions = [
                 SELECT Id, Plugin
@@ -360,40 +306,6 @@ public class GenAiMetadataService {
         Map<String, Object> configuration = new Map<String, Object>();
         
         try {
-            if (Test.isRunningTest()) {
-                // Return test data for TestAgent
-                if (agentId == TEST_AGENT) {
-                    // Get base agent configuration
-                    Map<String, Object> agentConfig = getAgentConfiguration(agentId);
-                    configuration.put('agent', agentConfig);
-                    configuration.put('success', true);
-                    
-                    // Get agent topics
-                    List<Map<String, Object>> topics = getAgentTopics(agentId);
-                    List<Map<String, Object>> enrichedTopics = new List<Map<String, Object>>();
-                    
-                    // For each topic, get its actions and instructions
-                    for (Map<String, Object> topic : topics) {
-                        String topicName = (String)topic.get('name');
-                        
-                        // Get actions for this topic
-                        List<Map<String, Object>> actions = getAgentActions(topicName);
-                        topic.put('actions', actions);
-                        
-                        // Get instructions for this topic
-                        List<Map<String, Object>> instructions = getAgentInstructions(topicName);
-                        topic.put('instructions', instructions);
-                        
-                        enrichedTopics.add(topic);
-                    }
-                    
-                    configuration.put('topics', enrichedTopics);
-                    return configuration;
-                }
-                // Return empty map for non-existent agent in test context
-                return configuration;
-            }
-
             // Get base agent configuration
             Map<String, Object> agentConfig = getAgentConfiguration(agentId);
             if (agentConfig == null || agentConfig.isEmpty()) {
