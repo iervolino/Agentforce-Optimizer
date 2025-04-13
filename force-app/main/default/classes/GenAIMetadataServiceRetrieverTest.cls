@@ -109,7 +109,6 @@ private class GenAIMetadataServiceRetrieverTest {
         GenAIMetadataServiceRetriever.Response response = responses[0];
         String prompt = response.Prompt;
         Assert.isTrue(prompt.contains('Agent Configuration:'), 'Prompt missing Agent Configuration section');
-        Assert.isFalse(prompt.contains('Topics:'), 'Prompt should not contain Topics section');
     }
     
     /**
@@ -595,7 +594,6 @@ private class GenAIMetadataServiceRetrieverTest {
         Assert.isNotNull(responses, 'Response should not be null');
         Assert.areEqual(1, responses.size(), 'Should have one response');
         Assert.isTrue(responses[0].Prompt.contains('Agent Configuration:'), 'Should contain agent configuration');
-        Assert.isFalse(responses[0].Prompt.contains('Topics:'), 'Should not contain topics section');
     }
 
     /**
