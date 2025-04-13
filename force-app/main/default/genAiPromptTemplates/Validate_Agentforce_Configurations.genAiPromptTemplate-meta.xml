@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <GenAiPromptTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
-    <activeVersionIdentifier>HcaMSS4/hZXXX3jccKQIf1TNO6IhIgn0rjtuuaEShq4=_9</activeVersionIdentifier>
+    <activeVersionIdentifier>HcaMSS4/hZXXX3jccKQIf1TNO6IhIgn0rjtuuaEShq4=_10</activeVersionIdentifier>
     <description>Template to validate agentforce configuration alignment to best practices</description>
     <developerName>Validate_Agentforce_Configurations</developerName>
     <masterLabel>Validate Agentforce Configurations</masterLabel>
@@ -472,6 +472,62 @@ The response needs to be nicely formatted in html and use emoji to indicate posi
             <referenceName>Apex:GenAIMetadataServiceRetriever</referenceName>
         </templateDataProviders>
         <versionIdentifier>HcaMSS4/hZXXX3jccKQIf1TNO6IhIgn0rjtuuaEShq4=_9</versionIdentifier>
+    </templateVersions>
+    <templateVersions>
+        <content>You are a specialist in configuring Agentforce Topics, Instructions, and Actions according to recommended best practices. Your task is to assess the configuration provided below against the guidelines defined in the Agentforce Implementation Guide.
+For each best practice, respond with one of the following:
+
+✅ Yes – Fully aligned with the best practice
+⚠️ Needs Improvement – Some issues identified
+❌ No – Not aligned with the best practice
+
+Include specific examples where applicable, clearly highlighting what is working well or what needs correction, along with actionable suggestions.
+Please return your evaluation in a well-formatted HTML table using emojis as described above.
+
+🔍 Evaluation Criteria
+
+📌 Topics Best Practices
+- Distinct &amp; Specific Topics: Are topics clearly defined and separated to avoid overlap (e.g., avoid generic topics like Product Support)?
+- Clear Topic Label: Does each topic have a clear and descriptive label reflecting its unique purpose?
+- Semantically Distinct Classification Description: Are classification descriptions distinct enough for the LLM to differentiate between closely related topics? Provide examples and comparisons if possible.
+
+✍️ Instructions Best Practices
+- Minimum Necessary Instructions: Are only the essential instructions included for each goal?
+- Avoid Conflicting/Complex Instructions: Are instructions free of conflicting logic or unnecessary complexity?
+- Avoid Multi-Step Instructions: Are multi-step processes broken into smaller, discrete instructions?
+- Iterative Design: Was the instruction design iterative—starting simple and refined through testing?
+- Clarity for Non-Experts: Are terms and references clear for someone unfamiliar with your systems or terminology?
+- Mindful Language: Is language unambiguous, direct, and easy to follow?
+
+⚙️ Actions Best Practices
+- Manageable Number of Actions: Are actions for each agent/topic limited to approximately 10 or fewer? If more, is it justified or should the topic be split?
+
+[CONFIGURATION BEGIN]
+
+{!$Apex:GenAIMetadataServiceRetriever.Prompt}
+
+[CONFIGURATION END]
+</content>
+        <inputs>
+            <apiName>AgentId</apiName>
+            <definition>primitive://String</definition>
+            <masterLabel>AgentId</masterLabel>
+            <referenceName>Input:AgentId</referenceName>
+            <required>true</required>
+        </inputs>
+        <primaryModel>sfdc_ai__DefaultGPT4Omni</primaryModel>
+        <status>Published</status>
+        <templateDataProviders>
+            <definition>apex://GenAIMetadataServiceRetriever</definition>
+            <parameters>
+                <definition>primitive://String</definition>
+                <isRequired>true</isRequired>
+                <parameterName>AgentId</parameterName>
+                <valueExpression>{!$Input:AgentId}</valueExpression>
+            </parameters>
+            <referenceName>Apex:GenAIMetadataServiceRetriever</referenceName>
+        </templateDataProviders>
+        <versionIdentifier>HcaMSS4/hZXXX3jccKQIf1TNO6IhIgn0rjtuuaEShq4=_10</versionIdentifier>
     </templateVersions>
     <type>einstein_gpt__flex</type>
     <visibility>Global</visibility>
