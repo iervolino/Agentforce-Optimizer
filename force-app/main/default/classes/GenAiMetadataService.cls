@@ -101,6 +101,7 @@ public class GenAiMetadataService {
             Set<String> pluginNames = new Set<String>();
             for (GenAiPlannerFunctionDef pf : plannerFunctions) {
                 pluginNames.add(pf.Plugin);
+                pluginNames.add(pf.Id);
             }
             
             if (pluginNames.isEmpty()) {
