@@ -835,4 +835,138 @@ private class GenAiMetadataServiceTest {
         Assert.isNotNull(instruction.get('label'), 'Instruction label should not be null');
         Assert.isNotNull(instruction.get('pluginId'), 'Instruction pluginId should not be null');
     }
+
+    /**
+     * @description Tests sending diagnostic email with valid data
+     */
+    @IsTest
+    static void testSendDiagnosticEmail_Success() {
+        // Query for an existing agent
+        List<GenAiPlannerDefinition> agents = [
+            SELECT Id, DeveloperName, MasterLabel
+            FROM GenAiPlannerDefinition 
+            WHERE IsDeleted = false 
+            LIMIT 1
+        ];
+        
+        // Skip test if no agents exist
+        if (agents.isEmpty()) {
+            return;
+        }
+        
+        Test.startTest();
+        Boolean result = GenAiMetadataService.sendDiagnosticEmail(
+            agents[0].Id,
+            '<html><body>Test diagnostic content</body></html>'
+        );
+        Test.stopTest();
+        
+        Assert.isTrue(result, 'Email should be sent successfully');
+    }
+
+    /**
+     * @description Tests sending diagnostic email with invalid agent ID
+     */
+    @IsTest
+    static void testSendDiagnosticEmail_InvalidAgentId() {
+        Test.startTest();
+        try {
+            Boolean result = GenAiMetadataService.sendDiagnosticEmail(
+                'a0x000000000000',  // Using a properly formatted but non-existent ID
+                '<html><body>Test diagnostic content</body></html>'
+            );
+            Assert.fail('Should have thrown an exception for invalid agent ID');
+        } catch (AuraHandledException e) {
+            // Expected exception
+            String errorMsg = e.getMessage();
+            Assert.isNotNull(errorMsg, 'Error message should not be null');
+        }
+        Test.stopTest();
+    }
+
+    /**
+     * @description Tests sending diagnostic email with null agent ID
+     */
+    @IsTest
+    static void testSendDiagnosticEmail_NullAgentId() {
+        Test.startTest();
+        try {
+            Boolean result = GenAiMetadataService.sendDiagnosticEmail(
+                null,
+                '<html><body>Test diagnostic content</body></html>'
+            );
+            Assert.fail('Should have thrown an exception for null agent ID');
+        } catch (AuraHandledException e) {
+            // Expected exception
+            String errorMsg = e.getMessage();
+            Assert.isNotNull(errorMsg, 'Error message should not be null');
+        }
+        Test.stopTest();
+    }
+
+    /**
+     * @description Tests sending diagnostic email with empty content
+     */
+    @IsTest
+    static void testSendDiagnosticEmail_EmptyContent() {
+        // Query for an existing agent
+        List<GenAiPlannerDefinition> agents = [
+            SELECT Id
+            FROM GenAiPlannerDefinition 
+            WHERE IsDeleted = false 
+            LIMIT 1
+        ];
+        
+        // Skip test if no agents exist
+        if (agents.isEmpty()) {
+            return;
+        }
+        
+        Test.startTest();
+        try {
+            Boolean result = GenAiMetadataService.sendDiagnosticEmail(
+                agents[0].Id,
+                ''
+            );
+            Assert.fail('Should have thrown an exception for empty content');
+        } catch (AuraHandledException e) {
+            // Expected exception
+            String errorMsg = e.getMessage();
+            Assert.isNotNull(errorMsg, 'Error message should not be null');
+        }
+        Test.stopTest();
+    }
+
+    /**
+     * @description Tests sending diagnostic email with null content
+     */
+    @IsTest
+    static void testSendDiagnosticEmail_NullContent() {
+        // Query for an existing agent
+        List<GenAiPlannerDefinition> agents = [
+            SELECT Id
+            FROM GenAiPlannerDefinition 
+            WHERE IsDeleted = false 
+            LIMIT 1
+        ];
+        
+        // Skip test if no agents exist
+        if (agents.isEmpty()) {
+            return;
+        }
+        
+        Test.startTest();
+        try {
+            Boolean result = GenAiMetadataService.sendDiagnosticEmail(
+                agents[0].Id,
+                null
+            );
+            Assert.fail('Should have thrown an exception for null content');
+        } catch (AuraHandledException e) {
+            // Expected exception
+            String errorMsg = e.getMessage();
+            Assert.isNotNull(errorMsg, 'Error message should not be null');
+        }
+        Test.stopTest();
+    }
 }

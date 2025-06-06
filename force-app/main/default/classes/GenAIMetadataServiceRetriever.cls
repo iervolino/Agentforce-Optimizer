@@ -75,7 +75,16 @@ public with sharing class GenAIMetadataServiceRetriever {
                     if (!actions.isEmpty()) {
                         promptTemplate += '\nActions:\n';
                         for (Map<String, Object> action : actions) {
-                            promptTemplate += '- ' + action.get('function') + '\n';
+                            promptTemplate += '- Action: ' + action.get('masterLabel') + '\n';
+                            promptTemplate += '  Developer Name: ' + action.get('developerName') + '\n';
+                            promptTemplate += '  Description: ' + action.get('description') + '\n';
+                            promptTemplate += '  Invocation Target: ' + action.get('invocationTarget') + '\n';
+                            promptTemplate += '  Invocation Type: ' + action.get('invocationTargetType') + '\n';
+                            promptTemplate += '  Requires Confirmation: ' + action.get('isConfirmationRequired') + '\n';
+                            promptTemplate += '  Progress Indicator: ' + action.get('isIncludeInProgressIndicator') + '\n';
+                            promptTemplate += '  Progress Message: ' + action.get('progressIndicatorMessage') + '\n';
+                            promptTemplate += '  Language: ' + action.get('language') + '\n';
+                            promptTemplate += '  Is Local: ' + action.get('isLocal') + '\n\n';
                         }
                     }
                     

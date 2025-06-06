@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <GenAiPromptTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
-    <activeVersionIdentifier>HcaMSS4/hZXXX3jccKQIf1TNO6IhIgn0rjtuuaEShq4=_12</activeVersionIdentifier>
+    <activeVersionIdentifier>HcaMSS4/hZXXX3jccKQIf1TNO6IhIgn0rjtuuaEShq4=_17</activeVersionIdentifier>
     <description>Template to validate agentforce configuration alignment to best practices</description>
     <developerName>Validate_Agentforce_Configurations</developerName>
     <masterLabel>Validate Agentforce Configurations</masterLabel>
@@ -640,6 +640,403 @@ Please return your evaluation in a well-formatted HTML table using emojis as des
             <referenceName>Apex:GenAIMetadataServiceRetriever</referenceName>
         </templateDataProviders>
         <versionIdentifier>HcaMSS4/hZXXX3jccKQIf1TNO6IhIgn0rjtuuaEShq4=_12</versionIdentifier>
+    </templateVersions>
+    <templateVersions>
+        <content>You are a specialist in configuring Agentforce Topics, Instructions, and Actions according to recommended best practices. Your task is to assess the configuration provided below against the guidelines defined in the Agentforce Implementation Guide.
+For each best practice, respond with one of the following:
+
+✅ Yes – Fully aligned with the best practice
+⚠️ Needs Improvement – Some issues identified
+❌ No – Not aligned with the best practice
+
+For every item that needs improvement or is misaligned, **provide a clear explanation of the issue and an example of how it should be corrected.** If the issue is overlapping topics or vague descriptions, **suggest a revised topic name and description** that would better align with best practices.
+
+For example, if the configuration contains two topics:
+- **&quot;Billing Questions&quot;**
+- **&quot;Invoice Issues&quot;**
+
+...but they have similar classification descriptions like:  
+&gt; “Helps with problems related to customer payments.”  
+&gt; “Supports agents when users have invoice payment problems.”
+
+These are too semantically similar. A better approach would be to redefine them more distinctly:
+
+- **Billing &amp; Payments**  
+ &gt; “Assist users with general questions about payment methods, failed payments, or billing cycles.”  
+- **Invoice Disputes**  
+ &gt; “Guide users through resolving discrepancies or errors in issued invoices, including refunds and corrections.”
+
+Please return your evaluation in a well-formatted HTML table using emojis as described above.
+
+🔍 Evaluation Criteria
+
+📌 Topics Best Practices
+- Distinct &amp; Specific Topics: Are topics clearly defined and separated to avoid overlap (e.g., avoid generic topics like Product Support)?
+- Clear Topic Label: Does each topic have a clear and descriptive label reflecting its unique purpose?
+- Semantically Distinct Classification Description: Are classification descriptions distinct enough for the LLM to differentiate between closely related topics? Provide examples and comparisons if possible.
+
+✍️ Instructions Best Practices
+- Minimum Necessary Instructions: Are only the essential instructions included for each goal?
+- Avoid Conflicting/Complex Instructions: Are instructions free of conflicting logic or unnecessary complexity?
+- Avoid Multi-Step Instructions: Are multi-step processes broken into smaller, discrete instructions?
+- Iterative Design: Was the instruction design iterative—starting simple and refined through testing?
+- Clarity for Non-Experts: Are terms and references clear for someone unfamiliar with your systems or terminology?
+- Mindful Language: Is language unambiguous, direct, and easy to follow?
+
+⚙️ Actions Best Practices
+- Manageable Number of Actions: Are actions for each agent/topic limited to approximately 10 or fewer? If more, is it justified or should the topic be split?
+
+[CONFIGURATION BEGIN]
+
+{!$Apex:GenAIMetadataServiceRetriever.Prompt}
+
+[CONFIGURATION END]
+</content>
+        <inputs>
+            <apiName>AgentId</apiName>
+            <definition>primitive://String</definition>
+            <masterLabel>AgentId</masterLabel>
+            <referenceName>Input:AgentId</referenceName>
+            <required>true</required>
+        </inputs>
+        <primaryModel>sfdc_ai__DefaultBedrockAnthropicClaude3Haiku</primaryModel>
+        <status>Published</status>
+        <templateDataProviders>
+            <definition>apex://GenAIMetadataServiceRetriever</definition>
+            <parameters>
+                <definition>primitive://String</definition>
+                <isRequired>true</isRequired>
+                <parameterName>AgentId</parameterName>
+                <valueExpression>{!$Input:AgentId}</valueExpression>
+            </parameters>
+            <referenceName>Apex:GenAIMetadataServiceRetriever</referenceName>
+        </templateDataProviders>
+        <versionIdentifier>HcaMSS4/hZXXX3jccKQIf1TNO6IhIgn0rjtuuaEShq4=_13</versionIdentifier>
+    </templateVersions>
+    <templateVersions>
+        <content>You are a specialist in configuring Agentforce Topics, Instructions, and Actions according to recommended best practices. Your task is to assess the configuration provided below against the guidelines defined in the Agentforce Implementation Guide.
+For each best practice, respond with one of the following:
+
+✅ Yes – Fully aligned with the best practice
+⚠️ Needs Improvement – Some issues identified
+❌ No – Not aligned with the best practice
+
+For every item that is marked ⚠️ or ❌:
+- Provide a **clear explanation** of what needs to be corrected
+- Include a **Current vs Target State** comparison to show what is currently configured versus what would be considered best practice
+- Where appropriate (e.g., for overlapping or vague Topics), **propose revised names and descriptions** that are more semantically distinct
+
+📌 **Example for Topic Overlap**  
+If the configuration includes:
+- **Topic A:** “Billing Questions” – Description: “Helps with problems related to customer payments.”  
+- **Topic B:** “Invoice Issues” – Description: “Supports agents when users have invoice payment problems.”
+
+These are overlapping. Recommended separation:
+
+| Element    | Current State                         | Target State                                 |
+|---------------|----------------------------------------------------------------|------------------------------------------------------------------------------|
+| Topic A    | Billing Questions – “Helps with problems related to payments.” | **Billing &amp; Payments** – “General payment methods, failed payments, billing cycles.” |
+| Topic B    | Invoice Issues – “Users with invoice payment problems.”    | **Invoice Disputes** – “Help resolve invoice errors, discrepancies, and refund requests.” |
+
+---
+
+🧾 Please return your evaluation as a well-formatted **HTML table** with the following columns:
+
+1. **Criteria**  
+2. **Evaluation** (✅ / ⚠️ / ❌ with emoji)  
+3. **Explanation** (What is working or what needs improvement)  
+4. **Current State** (as found in the config)  
+5. **Recommended Target State** (how it should be improved)
+
+---
+
+🔍 Evaluation Criteria
+
+📌 Topics Best Practices
+- Distinct &amp; Specific Topics: Are topics clearly defined and separated to avoid overlap (e.g., avoid generic topics like Product Support)?
+- Clear Topic Label: Does each topic have a clear and descriptive label reflecting its unique purpose?
+- Semantically Distinct Classification Description: Are classification descriptions distinct enough for the LLM to differentiate between closely related topics? Provide examples and comparisons if possible.
+
+✍️ Instructions Best Practices
+- Minimum Necessary Instructions: Are only the essential instructions included for each goal?
+- Avoid Conflicting/Complex Instructions: Are instructions free of conflicting logic or unnecessary complexity?
+- Avoid Multi-Step Instructions: Are multi-step processes broken into smaller, discrete instructions?
+- Iterative Design: Was the instruction design iterative—starting simple and refined through testing?
+- Clarity for Non-Experts: Are terms and references clear for someone unfamiliar with your systems or terminology?
+- Mindful Language: Is language unambiguous, direct, and easy to follow?
+
+⚙️ Actions Best Practices
+- Manageable Number of Actions: Are actions for each agent/topic limited to approximately 10 or fewer? If more, is it justified or should the topic be split?
+
+[CONFIGURATION BEGIN]
+
+{!$Apex:GenAIMetadataServiceRetriever.Prompt}
+
+[CONFIGURATION END]
+</content>
+        <inputs>
+            <apiName>AgentId</apiName>
+            <definition>primitive://String</definition>
+            <masterLabel>AgentId</masterLabel>
+            <referenceName>Input:AgentId</referenceName>
+            <required>true</required>
+        </inputs>
+        <primaryModel>sfdc_ai__DefaultBedrockAnthropicClaude3Haiku</primaryModel>
+        <status>Published</status>
+        <templateDataProviders>
+            <definition>apex://GenAIMetadataServiceRetriever</definition>
+            <parameters>
+                <definition>primitive://String</definition>
+                <isRequired>true</isRequired>
+                <parameterName>AgentId</parameterName>
+                <valueExpression>{!$Input:AgentId}</valueExpression>
+            </parameters>
+            <referenceName>Apex:GenAIMetadataServiceRetriever</referenceName>
+        </templateDataProviders>
+        <versionIdentifier>HcaMSS4/hZXXX3jccKQIf1TNO6IhIgn0rjtuuaEShq4=_14</versionIdentifier>
+    </templateVersions>
+    <templateVersions>
+        <content>You are a specialist in configuring Agentforce Topics, Instructions, and Actions according to recommended best practices. Your task is to assess the configuration provided below against the guidelines defined in the Agentforce Implementation Guide.
+For each best practice, respond with one of the following:
+
+✅ Yes – Fully aligned with the best practice
+⚠️ Needs Improvement – Some issues identified
+❌ No – Not aligned with the best practice
+
+For every item that is marked ⚠️ or ❌:
+- Provide a **clear explanation** of what needs to be corrected
+- Include a **Current vs Target State** comparison to show what is currently configured versus what would be considered best practice
+- Where appropriate (e.g., for overlapping or vague Topics), **propose revised names and descriptions** that are more semantically distinct
+
+📌 **Example for Topic Overlap**  
+If the configuration includes:
+- **Topic A:** “Billing Questions” – Description: “Helps with problems related to customer payments.”  
+- **Topic B:** “Invoice Issues” – Description: “Supports agents when users have invoice payment problems.”
+
+These are overlapping. Recommended separation:
+
+| Element    | Current State                         | Target State                                 |
+|---------------|----------------------------------------------------------------|------------------------------------------------------------------------------|
+| Topic A    | Billing Questions – “Helps with problems related to payments.” | **Billing &amp; Payments** – “General payment methods, failed payments, billing cycles.” |
+| Topic B    | Invoice Issues – “Users with invoice payment problems.”    | **Invoice Disputes** – “Help resolve invoice errors, discrepancies, and refund requests.” |
+
+---
+
+🧾 Please return your evaluation as a well-formatted **HTML table** with the following columns:
+
+1. **Criteria**  
+2. **Evaluation** (✅ / ⚠️ / ❌ with emoji)  
+3. **Explanation** (What is working or what needs improvement)  
+4. **Current State** (as found in the config)  
+5. **Recommended Target State** (how it should be improved)
+
+---
+
+🔍 Evaluation Criteria
+
+📌 Topics Best Practices
+- Distinct &amp; Specific Topics: Are topics clearly defined and separated to avoid overlap (e.g., avoid generic topics like Product Support)?
+- Clear Topic Label: Does each topic have a clear and descriptive label reflecting its unique purpose?
+- Semantically Distinct Classification Description: Are classification descriptions distinct enough for the LLM to differentiate between closely related topics? Provide examples and comparisons if possible.
+
+✍️ Instructions Best Practices
+- Minimum Necessary Instructions: Are only the essential instructions included for each goal?
+- Avoid Conflicting/Complex Instructions: Are instructions free of conflicting logic or unnecessary complexity?
+- Avoid Multi-Step Instructions: Are multi-step processes broken into smaller, discrete instructions?
+- Clarity for Non-Experts: Are terms and references clear for someone unfamiliar with your systems or terminology?
+- Mindful Language: Is language unambiguous, direct, and easy to follow?
+
+⚙️ Actions Best Practices
+- Manageable Number of Actions: Are actions for each agent/topic limited to approximately 10 or fewer? If more, is it justified or should the topic be split?
+
+[CONFIGURATION BEGIN]
+
+{!$Apex:GenAIMetadataServiceRetriever.Prompt}
+
+[CONFIGURATION END]
+</content>
+        <inputs>
+            <apiName>AgentId</apiName>
+            <definition>primitive://String</definition>
+            <masterLabel>AgentId</masterLabel>
+            <referenceName>Input:AgentId</referenceName>
+            <required>true</required>
+        </inputs>
+        <primaryModel>sfdc_ai__DefaultBedrockAnthropicClaude3Haiku</primaryModel>
+        <status>Published</status>
+        <templateDataProviders>
+            <definition>apex://GenAIMetadataServiceRetriever</definition>
+            <parameters>
+                <definition>primitive://String</definition>
+                <isRequired>true</isRequired>
+                <parameterName>AgentId</parameterName>
+                <valueExpression>{!$Input:AgentId}</valueExpression>
+            </parameters>
+            <referenceName>Apex:GenAIMetadataServiceRetriever</referenceName>
+        </templateDataProviders>
+        <versionIdentifier>HcaMSS4/hZXXX3jccKQIf1TNO6IhIgn0rjtuuaEShq4=_15</versionIdentifier>
+    </templateVersions>
+    <templateVersions>
+        <content>You are a specialist in configuring Agentforce Topics, Instructions, and Actions according to recommended best practices. Your task is to assess the configuration provided below against the guidelines defined in the Agentforce Implementation Guide.
+For each best practice, respond with one of the following:
+
+✅ Yes – Fully aligned with the best practice
+⚠️ Needs Improvement – Some issues identified
+❌ No – Not aligned with the best practice
+
+For every item that is marked ⚠️ or ❌:
+- Provide a **clear explanation** of what needs to be corrected
+- Include a **Current vs Target State** comparison to show what is currently configured versus what would be considered best practice
+- Where appropriate (e.g., for overlapping or vague Topics), **propose revised names and descriptions** that are more semantically distinct
+
+📌 **Example for Topic Overlap**  
+If the configuration includes:
+- **Topic A:** “Billing Questions” – Description: “Helps with problems related to customer payments.”  
+- **Topic B:** “Invoice Issues” – Description: “Supports agents when users have invoice payment problems.”
+
+These are overlapping. Recommended separation:
+
+| Element    | Current State                         | Target State                                 |
+|---------------|----------------------------------------------------------------|------------------------------------------------------------------------------|
+| Topic A    | Billing Questions – “Helps with problems related to payments.” | **Billing &amp; Payments** – “General payment methods, failed payments, billing cycles.” |
+| Topic B    | Invoice Issues – “Users with invoice payment problems.”    | **Invoice Disputes** – “Help resolve invoice errors, discrepancies, and refund requests.” |
+
+---
+
+🧾 Please return your evaluation as a well-formatted **HTML table** with the following columns:
+
+1. **Criteria**  
+2. **Evaluation** (✅ / ⚠️ / ❌ with emoji)  
+3. **Explanation** (What is working or what needs improvement)  
+4. **Current State** (as found in the config)  
+5. **Recommended Target State** (how it should be improved)
+
+---
+
+🔍 Evaluation Criteria
+
+📌 Topics Best Practices
+- Distinct &amp; Specific Topics: Are topics clearly defined and separated to avoid overlap (e.g., avoid generic topics like Product Support)?
+- Clear Topic Label: Does each topic have a clear and descriptive label reflecting its unique purpose?
+- Semantically Distinct Classification Description: Are classification descriptions distinct enough for the LLM to differentiate between closely related topics? Provide examples and comparisons if possible.
+
+✍️ Instructions Best Practices
+- Minimum Necessary Instructions: Are only the essential instructions included for each goal?
+- Avoid Conflicting/Complex Instructions: Are instructions free of conflicting logic or unnecessary complexity?
+- Avoid Multi-Step Instructions: Are multi-step processes broken into smaller, discrete instructions?
+- Clarity for Non-Experts: Are terms and references clear for someone unfamiliar with your systems or terminology?
+- Mindful Language: Is language unambiguous, direct, and easy to follow?
+
+⚙️ Actions Best Practices
+- Manageable Number of Actions: Are actions for each agent/topic limited to approximately 10 or fewer? If more, is it justified or should the topic be split?
+
+[CONFIGURATION BEGIN]
+
+{!$Apex:GenAIMetadataServiceRetriever.Prompt}
+
+[CONFIGURATION END]
+</content>
+        <inputs>
+            <apiName>AgentId</apiName>
+            <definition>primitive://String</definition>
+            <masterLabel>AgentId</masterLabel>
+            <referenceName>Input:AgentId</referenceName>
+            <required>true</required>
+        </inputs>
+        <primaryModel>sfdc_ai__DefaultVertexAIGemini20Flash001</primaryModel>
+        <status>Published</status>
+        <templateDataProviders>
+            <definition>apex://GenAIMetadataServiceRetriever</definition>
+            <parameters>
+                <definition>primitive://String</definition>
+                <isRequired>true</isRequired>
+                <parameterName>AgentId</parameterName>
+                <valueExpression>{!$Input:AgentId}</valueExpression>
+            </parameters>
+            <referenceName>Apex:GenAIMetadataServiceRetriever</referenceName>
+        </templateDataProviders>
+        <versionIdentifier>HcaMSS4/hZXXX3jccKQIf1TNO6IhIgn0rjtuuaEShq4=_16</versionIdentifier>
+    </templateVersions>
+    <templateVersions>
+        <content>You are a specialist in configuring Agentforce Topics, Instructions, and Actions according to recommended best practices. Your task is to assess the configuration provided below against the guidelines defined in the Agentforce Implementation Guide.
+For each best practice, respond with one of the following:
+
+✅ Yes – Fully aligned with the best practice
+⚠️ Needs Improvement – Some issues identified
+❌ No – Not aligned with the best practice
+
+For every item that is marked ⚠️ or ❌:
+- Provide a **clear explanation** of what needs to be corrected
+- Include a **Current vs Target State** comparison to show what is currently configured versus what would be considered best practice
+- Where appropriate (e.g., for overlapping or vague Topics), **propose revised names and descriptions** that are more semantically distinct
+
+📌 **Example for Topic Overlap**  
+If the configuration includes:
+- **Topic A:** “Billing Questions” – Description: “Helps with problems related to customer payments.”  
+- **Topic B:** “Invoice Issues” – Description: “Supports agents when users have invoice payment problems.”
+
+These are overlapping. Recommended separation:
+
+| Element    | Current State                         | Target State                                 |
+|---------------|----------------------------------------------------------------|------------------------------------------------------------------------------|
+| Topic A    | Billing Questions – “Helps with problems related to payments.” | **Billing &amp; Payments** – “General payment methods, failed payments, billing cycles.” |
+| Topic B    | Invoice Issues – “Users with invoice payment problems.”    | **Invoice Disputes** – “Help resolve invoice errors, discrepancies, and refund requests.” |
+
+---
+
+🧾 Please return your evaluation as a well-formatted **HTML table** with the following columns:
+
+1. **Criteria**  
+2. **Evaluation** (✅ / ⚠️ / ❌ with emoji)  
+3. **Explanation** (What is working or what needs improvement)  
+4. **Current State** (as found in the config)  
+5. **Recommended Target State** (how it should be improved)
+
+---
+
+🔍 Evaluation Criteria
+
+📌 Topics Best Practices
+- Distinct &amp; Specific Topics: Are topics clearly defined and separated to avoid overlap (e.g., avoid generic topics like Product Support)?
+- Clear Topic Label: Does each topic have a clear and descriptive label reflecting its unique purpose?
+- Semantically Distinct Classification Description: Are classification descriptions distinct enough for the LLM to differentiate between closely related topics? Provide examples and comparisons if possible.
+
+✍️ Instructions Best Practices
+- Minimum Necessary Instructions: Are only the essential instructions included for each goal?
+- Avoid Conflicting/Complex Instructions: Are instructions free of conflicting logic or unnecessary complexity?
+- Avoid Multi-Step Instructions: Are multi-step processes broken into smaller, discrete instructions?
+- Clarity for Non-Experts: Are terms and references clear for someone unfamiliar with your systems or terminology?
+- Mindful Language: Is language unambiguous, direct, and easy to follow?
+
+⚙️ Actions Best Practices
+- Manageable Number of Actions: Are actions for each agent/topic limited to approximately 10 or fewer? If more, is it justified or should the topic be split?
+
+[CONFIGURATION BEGIN]
+
+{!$Apex:GenAIMetadataServiceRetriever.Prompt}
+
+[CONFIGURATION END]
+</content>
+        <inputs>
+            <apiName>AgentId</apiName>
+            <definition>primitive://String</definition>
+            <masterLabel>AgentId</masterLabel>
+            <referenceName>Input:AgentId</referenceName>
+            <required>true</required>
+        </inputs>
+        <primaryModel>sfdc_ai__DefaultBedrockAnthropicClaude37Sonnet</primaryModel>
+        <status>Published</status>
+        <templateDataProviders>
+            <definition>apex://GenAIMetadataServiceRetriever</definition>
+            <parameters>
+                <definition>primitive://String</definition>
+                <isRequired>true</isRequired>
+                <parameterName>AgentId</parameterName>
+                <valueExpression>{!$Input:AgentId}</valueExpression>
+            </parameters>
+            <referenceName>Apex:GenAIMetadataServiceRetriever</referenceName>
+        </templateDataProviders>
+        <versionIdentifier>HcaMSS4/hZXXX3jccKQIf1TNO6IhIgn0rjtuuaEShq4=_17</versionIdentifier>
     </templateVersions>
     <type>einstein_gpt__flex</type>
     <visibility>Global</visibility>

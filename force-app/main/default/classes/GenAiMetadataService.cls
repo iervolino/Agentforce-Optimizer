@@ -179,7 +179,6 @@ public class GenAiMetadataService {
         List<Map<String, Object>> result = new List<Map<String, Object>>();
         
         try {
-
             // Query the GenAiPluginFunctionDef records associated with the topic
             List<GenAiPluginFunctionDef> functions = [
                 SELECT 
@@ -200,18 +199,73 @@ public class GenAiMetadataService {
                 AND IsDeleted = false
             ];
             
+            // Get all function IDs
+            Set<String> functionIds = new Set<String>();
             for (GenAiPluginFunctionDef func : functions) {
-                Map<String, Object> actionMap = new Map<String, Object>{
-                    'id' => func.Id,
-                    'function' => func.Function,
-                    'pluginId' => func.PluginId,
-                    'createdBy' => func.CreatedById,
-                    'lastModifiedBy' => func.LastModifiedById,
-                    'createdDate' => func.CreatedDate,
-                    'lastModifiedDate' => func.LastModifiedDate
-                };
-                
-                result.add(actionMap);
+                functionIds.add(func.Function);
+            }
+            
+            // Query the GenAiFunctionDefinition records
+            List<GenAiFunctionDefinition> functionDefs = [
+                SELECT 
+                    CreatedById,
+                    CreatedDate,
+                    Description,
+                    DeveloperName,
+                    Id,
+                    InvocationTarget,
+                    InvocationTargetType,
+                    IsConfirmationRequired,
+                    IsDeleted,
+                    IsIncludeInProgressIndicator,
+                    IsLocal,
+                    Language,
+                    LastModifiedById,
+                    LastModifiedDate,
+                    MasterLabel,
+                    NamespacePrefix,
+                    ParentId,
+                    ProgressIndicatorMessage,
+                    SystemModstamp
+                FROM GenAiFunctionDefinition
+                WHERE Id IN :functionIds
+                AND IsDeleted = false
+            ];
+            
+            // Create a map of function definitions by ID for easy lookup
+            Map<String, GenAiFunctionDefinition> functionDefMap = new Map<String, GenAiFunctionDefinition>();
+            for (GenAiFunctionDefinition funcDef : functionDefs) {
+                functionDefMap.put(funcDef.Id, funcDef);
+            }
+            
+            // Create the result maps
+            for (GenAiPluginFunctionDef func : functions) {
+                GenAiFunctionDefinition funcDef = functionDefMap.get(func.Function);
+                if (funcDef != null) {
+                    Map<String, Object> actionMap = new Map<String, Object>{
+                        'id' => func.Id,
+                        'functionId' => func.Function,
+                        'pluginId' => func.PluginId,
+                        'createdBy' => func.CreatedById,
+                        'lastModifiedBy' => func.LastModifiedById,
+                        'createdDate' => func.CreatedDate,
+                        'lastModifiedDate' => func.LastModifiedDate,
+                        'description' => funcDef.Description,
+                        'developerName' => funcDef.DeveloperName,
+                        'invocationTarget' => funcDef.InvocationTarget,
+                        'invocationTargetType' => funcDef.InvocationTargetType,
+                        'isConfirmationRequired' => funcDef.IsConfirmationRequired,
+                        'isLocal' => funcDef.IsLocal,
+                        'language' => funcDef.Language,
+                        'masterLabel' => funcDef.MasterLabel,
+                        'namespacePrefix' => funcDef.NamespacePrefix,
+                        'parentId' => funcDef.ParentId,
+                        'progressIndicatorMessage' => funcDef.ProgressIndicatorMessage,
+                        'systemModstamp' => funcDef.SystemModstamp
+                    };
+                    
+                    result.add(actionMap);
+                }
             }
             
             System.debug('Successfully retrieved ' + result.size() + ' actions for topic: ' + topicName);
@@ -437,6 +491,77 @@ public class GenAiMetadataService {
             System.debug('Error executing validation prompt: ' + e.getMessage());
             System.debug('Stack trace: ' + e.getStackTraceString());
             throw new AuraHandledException('Error executing validation prompt: ' + e.getMessage());
+        }
+    }
+
+    /**
+     * @description Gets user and organization information
+     * @return Map<String, String> Map containing user and org information
+     */
+    private static Map<String, String> getUserAndOrgInfo() {
+        Map<String, String> info = new Map<String, String>();
+        
+        // Get current user info
+        User currentUser = [SELECT Username, CompanyName FROM User WHERE Id = :UserInfo.getUserId() LIMIT 1];
+        info.put('username', currentUser.Username);
+        info.put('companyName', currentUser.CompanyName);
+        
+        // Get org info
+        Organization org = [SELECT OrganizationType FROM Organization LIMIT 1];
+        info.put('orgType', org.OrganizationType);
+        
+        return info;
+    }
+
+    /**
+     * @description Sends diagnostic email with agent configuration information
+     * @param agentId The ID of the agent
+     * @param diagnosticContent The diagnostic content to include in the email
+     * @return Boolean True if email was sent successfully
+     */
+    @AuraEnabled
+    public static Boolean sendDiagnosticEmail(Id agentId, String diagnosticContent) {
+        try {
+            if (agentId == null) {
+                throw new AuraHandledException('Agent ID is required');
+            }
+            
+            if (String.isBlank(diagnosticContent)) {
+                throw new AuraHandledException('Diagnostic content is required');
+            }
+
+            // Get agent configuration for subject
+            Map<String, Object> agentConfig = getAgentConfiguration(agentId);
+            if (agentConfig == null || agentConfig.isEmpty()) {
+                throw new AuraHandledException('Invalid agent ID: ' + agentId);
+            }
+
+            // Get user and org info
+            Map<String, String> userOrgInfo = getUserAndOrgInfo();
+
+            // Create email
+            Messaging.SingleEmailMessage email = new Messaging.SingleEmailMessage();
+            email.setToAddresses(new List<String>{ 'agentoptimizer@salesforce.com' });
+            email.setSubject('Agent Diagnostic Information - ' + agentConfig.get('name'));
+
+            // Format email body with user and org info
+            String emailBody = '<html><body>';
+            emailBody += '<h2>User Information</h2>';
+            emailBody += '<p><strong>Username:</strong> ' + userOrgInfo.get('username') + '</p>';
+            emailBody += '<p><strong>Company Name:</strong> ' + userOrgInfo.get('companyName') + '</p>';
+            emailBody += '<p><strong>Organization Type:</strong> ' + userOrgInfo.get('orgType') + '</p>';
+            emailBody += '<hr/>';
+            emailBody += '<h2>Diagnostic Information</h2>';
+            emailBody += diagnosticContent;
+            emailBody += '</body></html>';
+
+            email.setHtmlBody(emailBody);
+            
+            // Send email
+            Messaging.sendEmail(new List<Messaging.SingleEmailMessage>{ email });
+            return true;
+        } catch (Exception e) {
+            throw new AuraHandledException('Error sending diagnostic email: ' + e.getMessage());
         }
     }
  

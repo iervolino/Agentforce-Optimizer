@@ -134,10 +134,9 @@
 
                                         <!-- Actions -->
                                         <template if:true={topic.actions}>
-                                            <article class="slds-card">
+                                            <article class="slds-card slds-m-top_medium">
                                                 <div class="slds-card__header slds-grid">
-                                                    <header
-                                                        class="slds-media slds-media_center slds-has-flexi-truncate">
+                                                    <header class="slds-media slds-media_center slds-has-flexi-truncate">
                                                         <div class="slds-media__body">
                                                             <h2 class="slds-card__header-title">
                                                                 <span class="slds-text-heading_small">Actions</span>
@@ -147,10 +146,82 @@
                                                 </div>
                                                 <div class="slds-card__body">
                                                     <template for:each={topic.actions} for:item="action">
-                                                        <div key={action.id}
-                                                            class="slds-box slds-box_xx-small slds-m-bottom_x-small">
-                                                            <lightning-formatted-rich-text
-                                                                value={action.function}></lightning-formatted-rich-text>
+                                                        <div key={action.id} class="slds-box slds-box_xx-small slds-m-bottom_x-small">
+                                                            <div class="slds-grid slds-grid_vertical">
+                                                                <div class="slds-col">
+                                                                    <h3 class="slds-text-heading_small">{action.masterLabel}</h3>
+                                                                    <p class="slds-text-body_small slds-text-color_weak">{action.developerName}</p>
+                                                                </div>
+                                                                <div class="slds-col slds-m-top_xx-small">
+                                                                    <p class="slds-text-body_regular">{action.description}</p>
+                                                                </div>
+                                                                <div class="slds-col slds-m-top_xx-small">
+                                                                    <lightning-layout multiple-rows>
+                                                                        <lightning-layout-item size="6" padding="around-small">
+                                                                            <div class="slds-form-element">
+                                                                                <span class="slds-form-element__label">Invocation Target</span>
+                                                                                <div class="slds-form-element__control">
+                                                                                    <div class="slds-form-element__static">{action.invocationTarget}</div>
+                                                                                </div>
+                                                                            </div>
+                                                                        </lightning-layout-item>
+                                                                        <lightning-layout-item size="6" padding="around-small">
+                                                                            <div class="slds-form-element">
+                                                                                <span class="slds-form-element__label">Invocation Type</span>
+                                                                                <div class="slds-form-element__control">
+                                                                                    <div class="slds-form-element__static">{action.invocationTargetType}</div>
+                                                                                </div>
+                                                                            </div>
+                                                                        </lightning-layout-item>
+                                                                        <lightning-layout-item size="6" padding="around-small">
+                                                                            <div class="slds-form-element">
+                                                                                <span class="slds-form-element__label">Language</span>
+                                                                                <div class="slds-form-element__control">
+                                                                                    <div class="slds-form-element__static">{action.language}</div>
+                                                                                </div>
+                                                                            </div>
+                                                                        </lightning-layout-item>
+                                                                        <lightning-layout-item size="6" padding="around-small">
+                                                                            <div class="slds-form-element">
+                                                                                <span class="slds-form-element__label">Is Local</span>
+                                                                                <div class="slds-form-element__control">
+                                                                                    <div class="slds-form-element__static">{action.isLocal}</div>
+                                                                                </div>
+                                                                            </div>
+                                                                        </lightning-layout-item>
+                                                                    </lightning-layout>
+                                                                </div>
+                                                                <div class="slds-col slds-m-top_xx-small">
+                                                                    <lightning-layout multiple-rows>
+                                                                        <lightning-layout-item size="6" padding="around-small">
+                                                                            <div class="slds-form-element">
+                                                                                <span class="slds-form-element__label">Requires Confirmation</span>
+                                                                                <div class="slds-form-element__control">
+                                                                                    <div class="slds-form-element__static">{action.isConfirmationRequired}</div>
+                                                                                </div>
+                                                                            </div>
+                                                                        </lightning-layout-item>
+                                                                        <lightning-layout-item size="6" padding="around-small">
+                                                                            <div class="slds-form-element">
+                                                                                <span class="slds-form-element__label">Progress Indicator</span>
+                                                                                <div class="slds-form-element__control">
+                                                                                    <div class="slds-form-element__static">{action.isIncludeInProgressIndicator}</div>
+                                                                                </div>
+                                                                            </div>
+                                                                        </lightning-layout-item>
+                                                                    </lightning-layout>
+                                                                </div>
+                                                                <template if:true={action.progressIndicatorMessage}>
+                                                                    <div class="slds-col slds-m-top_xx-small">
+                                                                        <div class="slds-form-element">
+                                                                            <span class="slds-form-element__label">Progress Message</span>
+                                                                            <div class="slds-form-element__control">
+                                                                                <div class="slds-form-element__static">{action.progressIndicatorMessage}</div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </template>
+                                                            </div>
                                                         </div>
                                                     </template>
                                                 </div>
