@@ -177,9 +177,6 @@ export default class AgentConfigurationReccomendations extends NavigationMixin(L
                                     <li>
                                         <strong>Function:</strong> ${action.function || 'N/A'}<br>
                                         <strong>Description:</strong> ${action.description || 'N/A'}<br>
-                                        <strong>Parameters:</strong> ${action.parameters ? JSON.stringify(action.parameters, null, 2) : 'N/A'}<br>
-                                        <strong>Required:</strong> ${action.required ? 'Yes' : 'No'}<br>
-                                        <strong>Return Type:</strong> ${action.returnType || 'N/A'}
                                     </li>
                                 `).join('')}
                             </ul>

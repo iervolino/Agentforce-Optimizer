@@ -238,6 +238,12 @@ public class GenAiMetadataService {
                 GenAiFunctionDefinition funcDef = functionDefMap.get(func.Function);
                 if (funcDef != null) {
                     Map<String, Object> actionMap = new Map<String, Object>{
+                        'function' => funcDef.DeveloperName,
+                        'description' => funcDef.Description,
+                        'parameters' => funcDef.InvocationTarget,
+                        'required' => funcDef.IsConfirmationRequired,
+                        'returnType' => funcDef.InvocationTargetType,
+                        // Additional metadata fields
                         'id' => func.Id,
                         'functionId' => func.Function,
                         'pluginId' => func.PluginId,
@@ -245,11 +251,6 @@ public class GenAiMetadataService {
                         'lastModifiedBy' => func.LastModifiedById,
                         'createdDate' => func.CreatedDate,
                         'lastModifiedDate' => func.LastModifiedDate,
-                        'description' => funcDef.Description,
-                        'developerName' => funcDef.DeveloperName,
-                        'invocationTarget' => funcDef.InvocationTarget,
-                        'invocationTargetType' => funcDef.InvocationTargetType,
-                        'isConfirmationRequired' => funcDef.IsConfirmationRequired,
                         'isLocal' => funcDef.IsLocal,
                         'language' => funcDef.Language,
                         'masterLabel' => funcDef.MasterLabel,
