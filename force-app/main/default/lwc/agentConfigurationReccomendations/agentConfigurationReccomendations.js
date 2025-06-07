@@ -173,9 +173,15 @@ export default class AgentConfigurationReccomendations extends NavigationMixin(L
                         <div style="margin-top: 15px;">
                             <h4 style="color: #16325c; margin-bottom: 10px;">Actions</h4>
                             <ul style="margin: 0; padding-left: 20px;">
-                                ${(topic.actions || []).map(action => 
-                                    `<li>${action.function || 'N/A'}</li>`
-                                ).join('')}
+                                ${(topic.actions || []).map(action => `
+                                    <li>
+                                        <strong>Function:</strong> ${action.function || 'N/A'}<br>
+                                        <strong>Description:</strong> ${action.description || 'N/A'}<br>
+                                        <strong>Parameters:</strong> ${action.parameters ? JSON.stringify(action.parameters, null, 2) : 'N/A'}<br>
+                                        <strong>Required:</strong> ${action.required ? 'Yes' : 'No'}<br>
+                                        <strong>Return Type:</strong> ${action.returnType || 'N/A'}
+                                    </li>
+                                `).join('')}
                             </ul>
                         </div>
                     </div>

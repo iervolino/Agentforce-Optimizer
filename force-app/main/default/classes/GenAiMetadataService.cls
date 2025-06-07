@@ -167,19 +167,19 @@ public class GenAiMetadataService {
      * @description Retrieves actions associated with a specific topic
      * This method retrieves the actions (GenAiFunctions) associated with the topic.
      * 
-     * @param topicName The name of the topic (DeveloperName)
+     * @param pluginId The ID of the plugin
      * @return List<Map<String, Object>> A list of maps containing action details,
      *         or an empty list if no actions are found
      * 
      * @example
-     * List<Map<String, Object>> actions = GenAiMetadataService.getAgentActions('MyTopic');
+     * List<Map<String, Object>> actions = GenAiMetadataService.getAgentActions('a0x1234567890');
      */
-    public static List<Map<String, Object>> getAgentActions(String topicName) {
-        System.debug('Starting getAgentActions() method for topic: ' + topicName);
+    public static List<Map<String, Object>> getAgentActions(String pluginId) {
+        System.debug('Starting getAgentActions() method for plugin ID: ' + pluginId);
         List<Map<String, Object>> result = new List<Map<String, Object>>();
         
         try {
-            // Query the GenAiPluginFunctionDef records associated with the topic
+            // Query the GenAiPluginFunctionDef records associated with the plugin
             List<GenAiPluginFunctionDef> functions = [
                 SELECT 
                     Id,
@@ -190,12 +190,7 @@ public class GenAiMetadataService {
                     CreatedDate,
                     LastModifiedDate
                 FROM GenAiPluginFunctionDef
-                WHERE PluginId IN (
-                    SELECT Id 
-                    FROM GenAiPluginDefinition 
-                    WHERE DeveloperName = :topicName
-                    AND IsDeleted = false
-                )
+                WHERE PluginId = :pluginId
                 AND IsDeleted = false
             ];
             
@@ -268,7 +263,7 @@ public class GenAiMetadataService {
                 }
             }
             
-            System.debug('Successfully retrieved ' + result.size() + ' actions for topic: ' + topicName);
+            System.debug('Successfully retrieved ' + result.size() + ' actions for plugin ID: ' + pluginId);
         } catch (Exception e) {
             System.debug('Error retrieving topic actions: ' + e.getMessage());
             System.debug('Stack trace: ' + e.getStackTraceString());
@@ -380,9 +375,10 @@ public class GenAiMetadataService {
             // For each topic, get its actions and instructions
             for (Map<String, Object> topic : topics) {
                 String topicName = (String)topic.get('name');
+                String topicId = (String)topic.get('id');
                 
-                // Get actions for this topic
-                List<Map<String, Object>> actions = getAgentActions(topicName);
+                // Get actions for this topic using the plugin ID
+                List<Map<String, Object>> actions = getAgentActions(topicId);
                 topic.put('actions', actions);
                 
                 // Get instructions for this topic

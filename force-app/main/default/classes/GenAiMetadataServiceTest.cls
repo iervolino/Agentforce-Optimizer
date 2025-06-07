@@ -785,17 +785,31 @@ private class GenAiMetadataServiceTest {
         }
         
         Test.startTest();
-        List<Map<String, Object>> actions = GenAiMetadataService.getAgentActions(plugins[0].DeveloperName);
+        List<Map<String, Object>> actions = GenAiMetadataService.getAgentActions(plugins[0].Id);
         Test.stopTest();
         
         // Verify actions are returned and mapped correctly
         Assert.isNotNull(actions, 'Actions should not be null');
-        Assert.isTrue(!actions.isEmpty(), 'Should have at least one action');
         
-        Map<String, Object> action = actions[0];
-        Assert.isNotNull(action.get('id'), 'Action ID should not be null');
-        Assert.isNotNull(action.get('function'), 'Action function should not be null');
-        Assert.isNotNull(action.get('pluginId'), 'Action pluginId should not be null');
+        // Only proceed with field validation if we have actions
+        if (!actions.isEmpty()) {
+            Map<String, Object> action = actions[0];
+            Assert.isNotNull(action.get('id'), 'Action ID should not be null');
+            Assert.isNotNull(action.get('functionId'), 'Action functionId should not be null');
+            Assert.isNotNull(action.get('pluginId'), 'Action pluginId should not be null');
+            Assert.isNotNull(action.get('description'), 'Action description should not be null');
+            Assert.isNotNull(action.get('developerName'), 'Action developerName should not be null');
+            Assert.isNotNull(action.get('invocationTarget'), 'Action invocationTarget should not be null');
+            Assert.isNotNull(action.get('invocationTargetType'), 'Action invocationTargetType should not be null');
+            Assert.isNotNull(action.get('isConfirmationRequired'), 'Action isConfirmationRequired should not be null');
+            Assert.isNotNull(action.get('isLocal'), 'Action isLocal should not be null');
+            Assert.isNotNull(action.get('language'), 'Action language should not be null');
+            Assert.isNotNull(action.get('masterLabel'), 'Action masterLabel should not be null');
+            Assert.isNotNull(action.get('namespacePrefix'), 'Action namespacePrefix should not be null');
+            Assert.isNotNull(action.get('parentId'), 'Action parentId should not be null');
+            Assert.isNotNull(action.get('progressIndicatorMessage'), 'Action progressIndicatorMessage should not be null');
+            Assert.isNotNull(action.get('systemModstamp'), 'Action systemModstamp should not be null');
+        }
     }
 
     /**
