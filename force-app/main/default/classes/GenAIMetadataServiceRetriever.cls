@@ -66,12 +66,13 @@ public with sharing class GenAIMetadataServiceRetriever {
                 // For each topic, get its actions and instructions
                 for (Map<String, Object> topic : topics) {
                     String topicName = (String)topic.get('name');
+                    String topicId = (String)topic.get('id');
                     
                     promptTemplate += '\nTopic: ' + topic.get('label') + '\n';
                     promptTemplate += 'Description: ' + topic.get('description') + '\n';
                     
                     // Get actions for this topic
-                    List<Map<String, Object>> actions = GenAiMetadataService.getAgentActions(topicName);
+                    List<Map<String, Object>> actions = GenAiMetadataService.getAgentActions(topicId);
                     if (!actions.isEmpty()) {
                         promptTemplate += '\nActions:\n';
                         for (Map<String, Object> action : actions) {
@@ -80,10 +81,6 @@ public with sharing class GenAIMetadataServiceRetriever {
                             promptTemplate += '  Description: ' + action.get('description') + '\n';
                             promptTemplate += '  Invocation Target: ' + action.get('invocationTarget') + '\n';
                             promptTemplate += '  Invocation Type: ' + action.get('invocationTargetType') + '\n';
-                            promptTemplate += '  Requires Confirmation: ' + action.get('isConfirmationRequired') + '\n';
-                            promptTemplate += '  Progress Indicator: ' + action.get('isIncludeInProgressIndicator') + '\n';
-                            promptTemplate += '  Progress Message: ' + action.get('progressIndicatorMessage') + '\n';
-                            promptTemplate += '  Language: ' + action.get('language') + '\n';
                             promptTemplate += '  Is Local: ' + action.get('isLocal') + '\n\n';
                         }
                     }
